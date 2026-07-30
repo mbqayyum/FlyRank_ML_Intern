@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="550" viewBox="0 0 900 550">
+  <defs>
+    <style>
+      .bg { fill: #0a0e17; }
+      .card { fill: #111827; stroke: rgba(255, 255, 255, 0.12); stroke-width: 1.5; rx: 12; }
+      .card-accent { fill: #161e31; stroke: #6366f1; stroke-width: 2; rx: 12; }
+      .title { fill: #f1f5f9; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px; }
+      .subtitle { fill: #94a3b8; font-family: 'Inter', sans-serif; font-size: 12px; }
+      .text { fill: #cbd5e1; font-family: 'Inter', sans-serif; font-size: 13px; }
+      .tag { fill: #6366f1; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 11px; }
+      .tag-bg { fill: rgba(99, 102, 241, 0.15); rx: 4; }
+      .line { stroke: rgba(99, 102, 241, 0.5); stroke-width: 2; stroke-dasharray: 4,4; }
+      .arrow { fill: #6366f1; }
+      .header-title { fill: #ffffff; font-family: 'Inter', sans-serif; font-weight: 800; font-size: 22px; }
+      .header-sub { fill: #818cf8; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; }
+    </style>
+    <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <polygon points="0 0, 8 4, 0 8" fill="#6366f1"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Header -->
+  <text x="450" y="40" text-anchor="middle" class="header-title">PORTFOLIO SITEMAP SKETCH</text>
+  <text x="450" y="62" text-anchor="middle" class="header-sub">One Person (Head of SEO) → One Claim (ML Refresh Model) → One Action (Book 15-Min Call)</text>
+
+  <!-- LANDING PAGE (ROOT) -->
+  <g transform="translate(300, 90)">
+    <rect width="300" height="130" class="card-accent" />
+    <rect x="15" y="15" width="70" height="20" class="tag-bg" />
+    <text x="50" y="29" text-anchor="middle" class="tag">PAGE 1</text>
+    <text x="95" y="30" class="title">Hero / Landing Page (/)</text>
+    <text x="15" y="60" class="text">• Proof Statement &amp; 3.1x Lift Headline</text>
+    <text x="15" y="80" class="text">• Capstone Research Paper Teaser</text>
+    <text x="15" y="100" class="text">• Primary CTA: "Read Paper &amp; Book Call"</text>
+  </g>
+
+  <!-- CONNECTIONS FROM LANDING -->
+  <!-- Line down to Paper -->
+  <path d="M 380 220 L 220 280" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)" />
+  
+  <!-- Line down to Contact -->
+  <path d="M 520 220 L 680 280" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowhead)" />
+
+  <!-- PAGE 2: RESEARCH PAPER -->
+  <g transform="translate(60, 280)">
+    <rect width="320" height="170" class="card" />
+    <rect x="15" y="15" width="70" height="20" class="tag-bg" />
+    <text x="50" y="29" text-anchor="middle" class="tag">PAGE 2</text>
+    <text x="95" y="30" class="title">Research Paper (/paper)</text>
+    <text x="15" y="58" class="text">• Executive Abstract &amp; Problem Statement</text>
+    <text x="15" y="78" class="text">• Data Safety &amp; Client-Holdout Split</text>
+    <text x="15" y="98" class="text">• Model Results (0.740 P@50 vs 0.240 Base)</text>
+    <text x="15" y="118" class="text">• Embedded Queue Explorer &amp; Reason Codes</text>
+    <text x="15" y="138" class="text">• Honest Limitations &amp; Reproducibility</text>
+    <text x="15" y="158" class="subtitle" font-weight="600" fill="#818cf8">Consolidated from feedback (no page 4)</text>
+  </g>
+
+  <!-- PAGE 3: CONTACT / BOOKING -->
+  <g transform="translate(520, 280)">
+    <rect width="320" height="170" class="card" />
+    <rect x="15" y="15" width="70" height="20" class="tag-bg" />
+    <text x="50" y="29" text-anchor="middle" class="tag">PAGE 3</text>
+    <text x="95" y="30" class="title">Contact / Book Call (/contact)</text>
+    <text x="15" y="58" class="text">• Direct 15-Minute Calendar Scheduler</text>
+    <text x="15" y="78" class="text">• Technical Inquiry Quick Form</text>
+    <text x="15" y="98" class="text">• GitHub &amp; Full Code Repositories</text>
+    <text x="15" y="118" class="text">• Direct Email Contact (m.b.qayyum)</text>
+    <text x="15" y="148" class="subtitle" font-weight="600" fill="#10b981">Destination for the One Action</text>
+  </g>
+
+  <!-- CONNECTION BETWEEN PAPER AND CONTACT -->
+  <path d="M 380 365 L 520 365" stroke="#10b981" stroke-width="2" marker-end="url(#arrowhead)" />
+  <text x="450" y="355" text-anchor="middle" class="subtitle" fill="#10b981">Secondary Conversion</text>
+
+  <!-- FOOTER NOTES -->
+  <rect x="60" y="480" width="780" height="45" fill="#111827" stroke="rgba(255, 255, 255, 0.05)" rx="8" />
+  <text x="450" y="500" text-anchor="middle" class="subtitle">Sitemap Efficiency: 3 pages total. Every element serves to walk a Head of SEO from landing to booking a call.</text>
+  <text x="450" y="516" text-anchor="middle" class="subtitle" fill="#6366f1">Pressure-Tested Change: Embedded interactive queue into Page 2 instead of standalone page to eliminate drop-off.</text>
+</svg>
