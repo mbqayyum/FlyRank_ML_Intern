@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" style="background:#0F172A; font-family: 'Outfit', sans-serif;">
+  <defs>
+    <linearGradient id="phoneBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0F172A" />
+
+  <!-- Title & Status Header -->
+  <text x="40" y="45" font-size="22" font-weight="700" fill="#F8FAFC">MOBILE VERIFICATION & LIVE DEPLOYMENT</text>
+  <text x="40" y="70" font-size="14" font-weight="500" fill="#0EA5E9">https://mbqayyum.github.io/FlyRank_ML_Intern/</text>
+
+  <!-- Mobile Phone Mockup (Second Device Verification) -->
+  <g transform="translate(60, 95)" filter="url(#shadow)">
+    <!-- Phone Chassis -->
+    <rect width="240" height="370" rx="32" fill="#090D16" stroke="#334155" stroke-width="3" />
+    <!-- Dynamic Island / Camera Notch -->
+    <rect x="80" y="10" width="80" height="18" rx="9" fill="#0F172A" />
+    
+    <!-- Phone Screen Content (Mobile Viewport 375x812 scaled) -->
+    <rect x="10" y="35" width="220" height="325" rx="16" fill="#0F172A" />
+    
+    <!-- Mobile Nav Bar -->
+    <rect x="10" y="35" width="220" height="35" fill="#1E293B" />
+    <text x="22" y="58" font-size="11" font-weight="700" fill="#38BDF8">FlyRank · Capstone</text>
+    <circle cx="215" cy="53" r="3" fill="#0EA5E9" />
+
+    <!-- Mobile Hero Content -->
+    <rect x="22" y="85" width="100" height="16" rx="8" fill="rgba(14,165,233,0.15)" />
+    <text x="28" y="96" font-size="8" font-weight="700" fill="#0EA5E9">LANE 2 · REFRESH ML</text>
+
+    <!-- Headline on Mobile -->
+    <text x="22" y="120" font-size="12" font-weight="700" fill="#F8FAFC">Which Content Signals</text>
+    <text x="22" y="135" font-size="12" font-weight="700" fill="#F8FAFC">Predict Search Decline?</text>
+
+    <!-- Mobile Stat Cards -->
+    <rect x="22" y="150" width="90" height="50" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1" />
+    <text x="67" y="175" font-size="16" font-weight="800" fill="#0EA5E9" text-anchor="middle">3.1×</text>
+    <text x="67" y="190" font-size="8" font-weight="500" fill="#94A3B8" text-anchor="middle">Model Lift</text>
+
+    <rect x="120" y="150" width="90" height="50" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1" />
+    <text x="165" y="175" font-size="16" font-weight="800" fill="#38BDF8" text-anchor="middle">0.740</text>
+    <text x="165" y="190" font-size="8" font-weight="500" fill="#94A3B8" text-anchor="middle">Precision@50</text>
+
+    <!-- Mobile CTA Button -->
+    <rect x="22" y="215" width="188" height="28" rx="6" fill="#0EA5E9" />
+    <text x="116" y="233" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">READ CAPSTONE PAPER</text>
+
+    <!-- Verified Badge Overlay -->
+    <g transform="translate(15, 275)">
+      <rect width="190" height="24" rx="6" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1" />
+      <text x="95" y="16" font-size="9" font-weight="700" fill="#34D399" text-anchor="middle">✓ VERIFIED ON SECOND DEVICE</text>
+    </g>
+  </g>
+
+  <!-- SECTION 2: AUDIT & BUILD DETAILS (Right Side) -->
+  <g transform="translate(340, 100)">
+    <!-- Card 1: Host & Stack -->
+    <rect x="0" y="0" width="420" height="110" rx="16" fill="url(#phoneBg)" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" font-size="14" font-weight="700" fill="#38BDF8">1. HOST & STACK VERIFICATION</text>
+    <text x="20" y="55" font-size="12" font-weight="400" fill="#F8FAFC">• Host Provider: GitHub Pages (Free Tier Deployment)</text>
+    <text x="20" y="75" font-size="12" font-weight="400" fill="#F8FAFC">• Tech Stack: HTML5 + Vanilla CSS + JavaScript (Zero Frameworks)</text>
+    <text x="20" y="95" font-size="12" font-weight="400" fill="#F8FAFC">• Custom Domain/Path: mbqayyum.github.io/FlyRank_ML_Intern/</text>
+
+    <!-- Card 2: Claude Project Integration -->
+    <rect x="0" y="130" width="420" height="110" rx="16" fill="url(#phoneBg)" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="160" font-size="14" font-weight="700" fill="#38BDF8">2. CLAUDE PROJECT BUILD CONTEXT</text>
+    <text x="20" y="185" font-size="12" font-weight="400" fill="#F8FAFC">• Identity Kit Loaded (Outfit + Inter, #F8FAFC / #0EA5E9)</text>
+    <text x="20" y="205" font-size="12" font-weight="400" fill="#F8FAFC">• Content Map Loaded (3-Page Funnel: /, /paper, /contact)</text>
+    <text x="20" y="225" font-size="12" font-weight="400" fill="#F8FAFC">• Data Contract & Benchmark Loaded (0.740 vs 0.240 P@50)</text>
+
+    <!-- Card 3: Mobile Audit Checklist -->
+    <rect x="0" y="260" width="420" height="105" rx="16" fill="url(#phoneBg)" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="290" font-size="14" font-weight="700" fill="#38BDF8">3. PASS / REVISE AUDIT VERDICT</text>
+    <text x="20" y="315" font-size="12" font-weight="600" fill="#34D399">✅ Real Reachable URL: https://mbqayyum.github.io/FlyRank_ML_Intern/</text>
+    <text x="20" y="335" font-size="12" font-weight="600" fill="#34D399">✅ Opened on Phone / Second Device (Verified responsive layout)</text>
+    <text x="20" y="350" font-size="12" font-weight="600" fill="#34D399">✅ All W1-W4 context loaded into project for build week</text>
+  </g>
+</svg>
