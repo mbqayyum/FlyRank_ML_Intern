@@ -1,0 +1,8 @@
+{
+  "n_total": 30000,
+  "base_rate": 0.5421,
+  "precision_at_20": 0.35,
+  "precision_at_50": 0.34,
+  "precision_at_100": 0.38,
+  "roc_auc": 0.581
+}
