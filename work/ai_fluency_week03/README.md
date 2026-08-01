@@ -1,4 +1,4 @@
-# AI Fluency Week 3: Identity Kit & Image Curation
+# AI Fluency Week 3: Identity Kit, Image Curation & The Through-Line
 
 - **Author:** M. B. Qayyum
 - **Track:** FlyRank AI Internship · AI Fluency Track (Week 3)
@@ -25,7 +25,14 @@
    - Real Author Photo Specification
    - Pass / Revise Audit Checklist
 
-3. **Visual Assets & SVG Artifacts:**
+3. **[`the_through_line.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/the_through_line.md)** (Assignment: The Through-Line)
+   - One-Line Claim Brainstorming Log & Selected Sharpened Claim
+   - Content Map across 3 core pages (`/`, `/paper`, `/contact`) with ordered sections, lead cases, and CTAs
+   - Funnel Architecture laddering up to booking a 15-minute discovery call
+   - Honest "Still Need to Gather" Proof Checklist (Deployment URL, JS queue explorer, calendar widget)
+   - Pass / Revise Audit Checklist
+
+4. **Visual Assets & SVG Artifacts:**
    - **[`logo_favicon.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/logo_favicon.svg)** — Vector SVG logo mark, monogram, hex swatches, and favicon badge.
    - **[`hero_texture.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/hero_texture.svg)** — Dark slate/teal geometric background mesh.
    - **[`author_headshot_card.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/author_headshot_card.svg)** — Real author profile photo card.
