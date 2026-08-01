@@ -1,4 +1,4 @@
-# AI Fluency Week 3: Portfolio Identity Kit
+# AI Fluency Week 3: Identity Kit & Image Curation
 
 - **Author:** M. B. Qayyum
 - **Track:** FlyRank AI Internship · AI Fluency Track (Week 3)
@@ -17,5 +17,15 @@
    - 2-Line Style Note for Claude Project Configuration
    - Pass / Revise Audit Checklist
 
-2. **[`logo_favicon.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/logo_favicon.svg)** (Visual Identity Asset)
-   - Vector SVG graphic containing the `MQ` monogram logo, typography wordmark, color hex swatches, and 32×32 favicon badge.
+2. **[`curate_your_images.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/curate_your_images.md)** (Assignment: Curate Your Images)
+   - Keepers Image Inventory mapped to 3-page sitemap (`/`, `/paper`, `/contact`)
+   - Rationale: Where Real Captures Beat AI Stand-Ins (Scikit-Learn plots vs fake graphics)
+   - Discernment & Rejection Notes (Graded section detailing 3 rejected concepts: 3D AI brain, fake dashboard, synthetic persona)
+   - Connective Tissue Prompt Constraints & Visual Style Consistency
+   - Real Author Photo Specification
+   - Pass / Revise Audit Checklist
+
+3. **Visual Assets & SVG Artifacts:**
+   - **[`logo_favicon.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/logo_favicon.svg)** — Vector SVG logo mark, monogram, hex swatches, and favicon badge.
+   - **[`hero_texture.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/hero_texture.svg)** — Dark slate/teal geometric background mesh.
+   - **[`author_headshot_card.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week03/author_headshot_card.svg)** — Real author profile photo card.

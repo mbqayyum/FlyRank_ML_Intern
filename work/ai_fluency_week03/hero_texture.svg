@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="100%" height="100%" style="background:#0F172A;">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <linearGradient id="pulseLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0EA5E9" stop-opacity="0" />
+      <stop offset="50%" stop-color="#38BDF8" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="1200" height="400" fill="url(#bgGrad)" />
+
+  <!-- Subtle Geometric Grid Lines -->
+  <g stroke="#334155" stroke-width="1" opacity="0.3">
+    <path d="M 0,50 L 1200,50 M 0,150 L 1200,150 M 0,250 L 1200,250 M 0,350 L 1200,350" />
+    <path d="M 150,0 L 150,400 M 350,0 L 350,400 M 550,0 L 550,400 M 750,0 L 750,400 M 950,0 L 950,400 M 1150,0 L 1150,400" />
+  </g>
+
+  <!-- Abstract Signal Nodes & Wave Curves (Search Intelligence Mesh) -->
+  <path d="M 0,280 Q 300,180 600,240 T 1200,160" fill="none" stroke="url(#pulseLine)" stroke-width="2" />
+  <path d="M 0,320 Q 350,220 700,290 T 1200,210" fill="none" stroke="#0EA5E9" stroke-width="1" opacity="0.4" stroke-dasharray="6,6" />
+
+  <!-- Precision Signal Nodes -->
+  <circle cx="300" cy="214" r="4" fill="#38BDF8" />
+  <circle cx="600" cy="240" r="5" fill="#0EA5E9" />
+  <circle cx="900" cy="195" r="4" fill="#38BDF8" />
+
+  <!-- Subtle Ambient Glow Overlay -->
+  <circle cx="600" cy="200" r="250" fill="#0EA5E9" opacity="0.04" />
+</svg>
