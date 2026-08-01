@@ -14,9 +14,9 @@
    - Bio & Contact/CTA Copy
    - Pass / Revise Audit Checklist
 
-2. **[`prompt_ladder.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week02/prompt_ladder.md)** (Assignment: Build a Prompt Ladder)
-   - Baseline Prompt V0 (weak prompt)
-   - 5 Single-Layer Iterations (Audience, Context, Constraints, Format, Verification)
-   - 4 Diagnostic Notes per version (focusing on output difference)
-   - Honest "Made It Worse" Moment (V2 label leakage failure)
-   - Final Reusable Production Prompt Template
+2. **[`prompt_ladder.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week02/prompt_ladder.md)** (Assignment: Prompt Iteration Log & Cross-Model Comparison)
+   - Baseline Prompt V0 (Naive one-line prompt)
+   - 5 Named Technique Iterations (Role Assignment, Context & Motivation, Few-Shot Examples, Output Structure, Step Decomposition)
+   - Output-focused diagnostic notes per iteration (including V2 label leakage failure moment)
+   - Cross-Model Comparison Matrix (Claude 3.5 Sonnet vs ChatGPT / GPT-4o)
+   - Final Reusable Production Prompt Template for strangers
