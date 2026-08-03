@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0F172A; }
+      .card { fill: #1E293B; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+      .header-title { font-family: 'Outfit', 'Inter', sans-serif; font-size: 20px; font-weight: 700; fill: #F8FAFC; }
+      .header-sub { font-family: 'Inter', sans-serif; font-size: 12px; fill: #0EA5E9; letter-spacing: 1px; }
+      .box-title { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600; fill: #F8FAFC; }
+      .text-body { font-family: 'Inter', sans-serif; font-size: 11px; fill: #94A3B8; }
+      .code-text { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; fill: #38BDF8; }
+      .code-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #34D399; }
+      .code-alert { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #F43F5E; }
+      .badge { fill: #0EA5E9; rx: 4px; }
+      .badge-text { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; fill: #FFFFFF; }
+      .arrow { stroke: #0EA5E9; stroke-width: 2; stroke-dasharray: 4,4; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" class="bg" />
+
+  <!-- Header Block -->
+  <rect x="30" y="25" width="940" height="70" class="card" />
+  <text x="50" y="55" class="header-sub">MCP ARCHITECTURE &amp; TOOL EXECUTION PROOF</text>
+  <text x="50" y="78" class="header-title">Model Context Protocol (MCP) Live Connector Audit — 3 Non-Chat Tool Tasks</text>
+  
+  <!-- System Architecture Diagram -->
+  <rect x="30" y="110" width="940" height="110" class="card" />
+  <text x="50" y="135" class="box-title">MCP Client-Server Protocol Flow (JSON-RPC over stdio / SSE)</text>
+  
+  <!-- MCP Client Box -->
+  <rect x="50" y="150" width="240" height="55" rx="6" fill="#0F172A" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="65" y="173" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">Claude MCP Client</text>
+  <text x="65" y="192" font-family="'Inter', sans-serif" font-size="10" fill="#94A3B8">Host Agent / LLM Control Loop</text>
+  
+  <!-- JSON-RPC Arrow 1 -->
+  <path d="M 290 170 L 370 170" stroke="#0EA5E9" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="300" y="162" font-family="monospace" font-size="9" fill="#38BDF8">tools/call</text>
+  
+  <!-- MCP Server Box -->
+  <rect x="370" y="150" width="260" height="55" rx="6" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="385" y="173" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">MCP Server (Local / Remote)</text>
+  <text x="385" y="192" font-family="'Inter', sans-serif" font-size="10" fill="#94A3B8">Exposes: Tools, Resources, Prompts</text>
+  
+  <!-- JSON-RPC Arrow 2 -->
+  <path d="M 630 170 L 710 170" stroke="#34D399" stroke-width="2"/>
+  <text x="640" y="162" font-family="monospace" font-size="9" fill="#34D399">native execution</text>
+
+  <!-- External Tool Host Box -->
+  <rect x="710" y="150" width="240" height="55" rx="6" fill="#0F172A" stroke="#34D399" stroke-width="1.5"/>
+  <text x="725" y="173" font-family="'Inter', sans-serif" font-size="12" font-weight="700" fill="#F8FAFC">Local System &amp; APIs</text>
+  <text x="725" y="192" font-family="'Inter', sans-serif" font-size="10" fill="#94A3B8">Filesystem, DuckDB, HTTP APIs</text>
+
+  <!-- Task 1 Card: Local Filesystem Inspection -->
+  <rect x="30" y="235" width="300" height="390" class="card" />
+  <rect x="45" y="250" width="60" height="20" class="badge" />
+  <text x="54" y="264" class="badge-text">TASK 1</text>
+  <text x="115" y="265" class="box-title">Local File Inspection</text>
+  <text x="45" y="290" class="text-body">Task: Read local dataset schema from disk.</text>
+  
+  <rect x="45" y="305" width="270" height="305" rx="4" fill="#0F172A" stroke="#1E293B" />
+  <text x="55" y="325" class="code-text">▶ MCP Tool Call:</text>
+  <text x="55" y="342" class="code-val">mcp_fs:read_file({</text>
+  <text x="65" y="358" class="code-val">  path: "data/processed/..."</text>
+  <text x="55" y="374" class="code-val">})</text>
+  
+  <text x="55" y="400" class="code-text">▶ JSON-RPC Response:</text>
+  <text x="55" y="418" class="code-val">{ "status": 200, "lines": 44,</text>
+  <text x="65" y="434" class="code-val">  "schema": [</text>
+  <text x="75" y="450" class="code-val">    "page_id", "impressions",</text>
+  <text x="75" y="466" class="code-val">    "trend_direction",</text>
+  <text x="75" y="482" class="code-val">    "is_declining_label"</text>
+  <text x="65" y="498" class="code-val">  ]</text>
+  <text x="55" y="514" class="code-val">}</text>
+  
+  <text x="55" y="540" class="code-text">▶ Verdict vs Chat:</text>
+  <text x="55" y="558" stroke="none" fill="#34D399" font-family="'Inter', sans-serif" font-size="11">✔ Reads binary disk state directly without user pasting.</text>
+
+  <!-- Task 2 Card: Live SQL Warehouse Execution -->
+  <rect x="350" y="235" width="300" height="390" class="card" />
+  <rect x="365" y="250" width="60" height="20" class="badge" fill="#38BDF8"/>
+  <text x="374" y="264" class="badge-text">TASK 2</text>
+  <text x="435" y="265" class="box-title">Live SQL Execution</text>
+  <text x="365" y="290" class="text-body">Task: Execute SQL query over DuckDB warehouse.</text>
+  
+  <rect x="365" y="305" width="270" height="305" rx="4" fill="#0F172A" stroke="#1E293B" />
+  <text x="375" y="325" class="code-text">▶ MCP Tool Call:</text>
+  <text x="375" y="342" class="code-val">mcp_duckdb:execute_query({</text>
+  <text x="385" y="358" class="code-val">  sql: "SELECT AVG(prec) ..."</text>
+  <text x="375" y="374" class="code-val">})</text>
+  
+  <text x="375" y="400" class="code-text">▶ JSON-RPC Response:</text>
+  <text x="375" y="418" class="code-val">{ "rows": 1, "columns": [</text>
+  <text x="385" y="434" class="code-val">    "precision_at_50", "auc"</text>
+  <text x="375" y="450" class="code-val">  ], "data": [[</text>
+  <text x="385" y="466" class="code-val">    0.740, 0.781</text>
+  <text x="375" y="482" class="code-val">  ]]</text>
+  <text x="375" y="498" class="code-val">}</text>
+  
+  <text x="375" y="540" class="code-text">▶ Verdict vs Chat:</text>
+  <text x="375" y="558" stroke="none" fill="#34D399" font-family="'Inter', sans-serif" font-size="11">✔ Calculates exact metrics on live DuckDB database.</text>
+
+  <!-- Task 3 Card: External Live API Inspection -->
+  <rect x="670" y="235" width="300" height="390" class="card" />
+  <rect x="685" y="250" width="60" height="20" class="badge" fill="#34D399"/>
+  <text x="694" y="264" class="badge-text">TASK 3</text>
+  <text x="755" y="265" class="box-title">Live API Verification</text>
+  <text x="685" y="290" class="text-body">Task: Fetch live Search Policy from Google API.</text>
+  
+  <rect x="685" y="305" width="270" height="305" rx="4" fill="#0F172A" stroke="#1E293B" />
+  <text x="695" y="325" class="code-text">▶ MCP Tool Call:</text>
+  <text x="695" y="342" class="code-val">mcp_http:fetch_url({</text>
+  <text x="705" y="358" class="code-val">  url: "https://developers..."</text>
+  <text x="695" y="374" class="code-val">})</text>
+  
+  <text x="695" y="400" class="code-text">▶ JSON-RPC Response:</text>
+  <text x="695" y="418" class="code-val">{ "status": 200,</text>
+  <text x="705" y="434" class="code-val">  "content_type": "text/html",</text>
+  <text x="705" y="450" class="code-val">  "header_etag": "W/\"60-26\"",</text>
+  <text x="705" y="466" class="code-val">  "body_snippet": "March 2026"</text>
+  <text x="695" y="482" class="code-val">}</text>
+  
+  <text x="695" y="540" class="code-text">▶ Verdict vs Chat:</text>
+  <text x="695" y="558" stroke="none" fill="#34D399" font-family="'Inter', sans-serif" font-size="11">✔ Fetches live online documentation without cutoff.</text>
+
+</svg>
