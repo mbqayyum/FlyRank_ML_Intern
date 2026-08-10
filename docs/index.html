@@ -3,1293 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Which Content Signals Predict Search Decline — and Can ML Prioritize Refreshes Better Than Hand-Rules?</title>
-    <meta name="description" content="A machine-learning study on 30,000 pseudonymized content pages showing that a Random Forest model achieves ~3× lift over transparent hand-rules at identifying pages declining in search visibility, producing a ranked refresh queue for editorial teams.">
-    <meta name="author" content="M. B. Qayyum">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="M. B. Qayyum — FlyRank AI & ML Engineering Intern Portfolio. Search ML, Content Triage Agents, and Autonomous Workflows.">
+    <title>M. B. Qayyum | FlyRank AI & ML Engineering Intern</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        /* ======= DESIGN SYSTEM ======= */
-        :root {
-            --bg-primary: #0a0e17;
-            --bg-secondary: #111827;
-            --bg-card: rgba(17, 24, 39, 0.7);
-            --bg-glass: rgba(255, 255, 255, 0.03);
-            --border-glass: rgba(255, 255, 255, 0.08);
-            --border-accent: rgba(99, 102, 241, 0.3);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent-indigo: #6366f1;
-            --accent-violet: #8b5cf6;
-            --accent-emerald: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-rose: #f43f5e;
-            --accent-sky: #0ea5e9;
-            --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
-            --gradient-hero: linear-gradient(135deg, #0a0e17 0%, #1e1b4b 50%, #0a0e17 100%);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
-            --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
-            --radius-lg: 16px;
-            --radius-md: 12px;
-            --radius-sm: 8px;
-        }
-
-        /* ======= RESET & BASE ======= */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-
-        /* ======= AMBIENT BACKGROUND ======= */
-        .ambient-bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .ambient-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 60%),
-                        radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
-            animation: ambientShift 30s ease-in-out infinite;
-        }
-
-        @keyframes ambientShift {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(-2%, 1%) rotate(1deg); }
-            66% { transform: translate(1%, -1%) rotate(-0.5deg); }
-        }
-
-        /* ======= NAVIGATION ======= */
-        nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 100;
-            background: rgba(10, 14, 23, 0.85);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-bottom: 1px solid var(--border-glass);
-            transition: all 0.3s ease;
-        }
-
-        nav .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0.75rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav .nav-brand {
-            font-weight: 700;
-            font-size: 0.95rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-        }
-
-        nav .nav-links {
-            display: flex;
-            gap: 0.25rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
-
-        nav .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 0.4rem 0.75rem;
-            border-radius: var(--radius-sm);
-            transition: all 0.2s ease;
-        }
-
-        nav .nav-links a:hover {
-            color: var(--text-primary);
-            background: var(--bg-glass);
-        }
-
-        /* ======= LAYOUT ======= */
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .container-wide {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* ======= HERO ======= */
-        .hero {
-            padding: 8rem 2rem 4rem;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--gradient-hero);
-            z-index: -1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--accent-indigo);
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 0.6s ease;
-        }
-
-        .hero-badge .dot {
-            width: 6px; height: 6px;
-            background: var(--accent-emerald);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        h1 {
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            font-weight: 800;
-            line-height: 1.15;
-            letter-spacing: -0.03em;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #f1f5f9 0%, #cbd5e1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.6s ease 0.1s both;
-        }
-
-        .hero-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.6s ease 0.2s both;
-        }
-
-        .hero-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ======= ABSTRACT ======= */
-        .abstract {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            padding: 2rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-glass);
-            border-left: 3px solid var(--accent-indigo);
-            border-radius: var(--radius-md);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-            animation: fadeInUp 0.6s ease 0.3s both;
-        }
-
-        /* ======= SECTIONS ======= */
-        section {
-            padding: 4rem 0;
-            animation: fadeInOnScroll 0.6s ease both;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0;
-            width: 40px; height: 3px;
-            background: var(--gradient-primary);
-            border-radius: 2px;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--accent-indigo);
-            margin-bottom: 0.5rem;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 2rem 0 0.75rem;
-            color: var(--text-primary);
-        }
-
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-secondary);
-        }
-
-        /* ======= CARDS ======= */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-2px);
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 1.5rem;
-        }
-
-        .stat-card .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card .stat-label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .stat-indigo .stat-value { color: var(--accent-indigo); }
-        .stat-emerald .stat-value { color: var(--accent-emerald); }
-        .stat-amber .stat-value { color: var(--accent-amber); }
-        .stat-rose .stat-value { color: var(--accent-rose); }
-        .stat-violet .stat-value { color: var(--accent-violet); }
-        .stat-sky .stat-value { color: var(--accent-sky); }
-
-        /* ======= TABLES ======= */
-        .table-wrap {
-            overflow-x: auto;
-            margin: 1.5rem 0;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-glass);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        thead {
-            background: rgba(99, 102, 241, 0.08);
-        }
-
-        th {
-            padding: 0.85rem 1rem;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-glass);
-            white-space: nowrap;
-        }
-
-        td {
-            padding: 0.75rem 1rem;
-            border-bottom: 1px solid var(--border-glass);
-            color: var(--text-secondary);
-        }
-
-        tr:last-child td { border-bottom: none; }
-
-        tr:hover td {
-            background: rgba(99, 102, 241, 0.04);
-        }
-
-        .highlight-row td {
-            background: rgba(99, 102, 241, 0.08);
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .metric-good { color: var(--accent-emerald); font-weight: 600; }
-        .metric-mid { color: var(--accent-amber); font-weight: 600; }
-        .metric-base { color: var(--text-muted); }
-
-        /* ======= CHARTS ======= */
-        .chart-container {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            transition: all 0.3s ease;
-        }
-
-        .chart-container:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .chart-container svg {
-            width: 100%;
-            height: auto;
-            border-radius: var(--radius-sm);
-        }
-
-        .chart-container svg rect:first-child {
-            fill: transparent !important;
-        }
-
-        .chart-container svg text {
-            fill: var(--text-secondary) !important;
-            font-family: 'Inter', sans-serif !important;
-        }
-
-        .chart-container svg text:first-of-type {
-            fill: var(--text-primary) !important;
-            font-weight: 600 !important;
-        }
-
-        .chart-caption {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-top: 0.75rem;
-            font-style: italic;
-        }
-
-        .chart-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        /* ======= METHODOLOGY LIST ======= */
-        .method-list {
-            list-style: none;
-            padding: 0;
-            margin: 1.5rem 0;
-        }
-
-        .method-list li {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-glass);
-            color: var(--text-secondary);
-        }
-
-        .method-list li:last-child { border-bottom: none; }
-
-        .method-list .method-icon {
-            flex-shrink: 0;
-            width: 36px; height: 36px;
-            border-radius: 10px;
-            background: rgba(99, 102, 241, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            margin-top: 0.1rem;
-        }
-
-        /* ======= ACTION PLAYBOOK ======= */
-        .action-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.25rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-md);
-            margin-bottom: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .action-item:hover {
-            border-color: var(--border-accent);
-            transform: translateX(4px);
-        }
-
-        .action-rank {
-            flex-shrink: 0;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1rem;
-            color: white;
-        }
-
-        .action-content h4 {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--text-primary);
-        }
-
-        .action-content p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin: 0;
-        }
-
-        .action-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.6rem;
-            border-radius: 100px;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .tag-high { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-        .tag-review { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
-        .tag-monitor { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-
-        /* ======= LIMITATIONS ======= */
-        .limitation-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .limitation-list li {
-            position: relative;
-            padding: 0.75rem 0 0.75rem 2rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .limitation-list li::before {
-            content: '⚠';
-            position: absolute;
-            left: 0;
-            top: 0.75rem;
-            font-size: 0.9rem;
-        }
-
-        /* ======= CODE ======= */
-        code {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85em;
-            background: rgba(99, 102, 241, 0.1);
-            padding: 0.15em 0.4em;
-            border-radius: 4px;
-            color: var(--accent-indigo);
-        }
-
-        pre {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-md);
-            padding: 1.25rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        pre code {
-            background: none;
-            padding: 0;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        /* ======= LINKS ======= */
-        a {
-            color: var(--accent-indigo);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        a:hover {
-            color: var(--accent-violet);
-            text-decoration: underline;
-        }
-
-        /* ======= FOOTER ======= */
-        footer {
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border-glass);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--accent-indigo);
-        }
-
-        /* ======= RESPONSIVE ======= */
-        @media (max-width: 768px) {
-            .hero { padding: 6rem 1.5rem 3rem; }
-            .container, .container-wide { padding: 0 1.25rem; }
-            section { padding: 2.5rem 0; }
-            .card { padding: 1.25rem; }
-            .card-grid { grid-template-columns: 1fr; }
-            .chart-grid { grid-template-columns: 1fr; }
-            .hero-meta { gap: 1rem; }
-            nav .nav-links { display: none; }
-            h2 { font-size: 1.5rem; }
-            .stat-card .stat-value { font-size: 2rem; }
-            .table-wrap { font-size: 0.8rem; }
-            th, td { padding: 0.5rem 0.6rem; }
-        }
-
-        /* ======= DIVIDER ======= */
-        .section-divider {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
-            margin: 0;
-        }
-
-        /* ======= FEATURE GRID ======= */
-        .feature-badge {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 0.25rem 0.6rem;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 6px;
-            margin: 0.2rem;
-            color: var(--accent-indigo);
-        }
-
-        .callout {
-            padding: 1.25rem 1.5rem;
-            background: rgba(245, 158, 11, 0.08);
-            border: 1px solid rgba(245, 158, 11, 0.2);
-            border-left: 3px solid var(--accent-amber);
-            border-radius: var(--radius-sm);
-            margin: 1.5rem 0;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .callout-info {
-            background: rgba(99, 102, 241, 0.08);
-            border-color: rgba(99, 102, 241, 0.2);
-            border-left-color: var(--accent-indigo);
-        }
-
-        /* ======= SCROLL ANIMATIONS ======= */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="ambient-bg"></div>
 
-    <!-- ===== NAVIGATION ===== -->
-    <nav>
-        <div class="nav-inner">
-            <div class="nav-brand">FlyRank · Capstone</div>
-            <ul class="nav-links">
-                <li><a href="#abstract">Abstract</a></li>
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#data">Data</a></li>
-                <li><a href="#methodology">Methodology</a></li>
-                <li><a href="#results">Results</a></li>
-                <li><a href="#limitations">Limitations</a></li>
-                <li><a href="#recommendations">Recommendations</a></li>
-                <li><a href="#reproducibility">Reproducibility</a></li>
-            </ul>
-        </div>
-    </nav>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="brand-logo">
+                <span class="logo-mark">⚡</span>
+                <span class="logo-text">M. B. Qayyum</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#dns-status">Subdomain Status</a>
+                <a href="#posts">Research & Posts</a>
+                <a href="#contact" class="btn btn-sm btn-outline">Connect</a>
+            </nav>
 
-    <!-- ===== HERO ===== -->
-    <header class="hero">
-        <div class="container">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                Lane 2 · Refresh / Content Opportunity Scoring
-            </div>
-            <h1>Which Content Signals Predict Search Decline — and Can ML Prioritize Refreshes Better Than Hand‑Rules?</h1>
-            <div class="hero-meta">
-                <span>📄 M. B. Qayyum</span>
-                <span>📊 30,000 pages · 32 clients</span>
-                <span>📅 July 2026</span>
-            </div>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>
 
-    <!-- ===== ABSTRACT ===== -->
-    <section id="abstract">
-        <div class="container">
-            <div class="abstract">
-                <strong>Abstract.</strong> Content teams managing large portfolios must decide which pages to refresh first when search visibility declines — a decision currently guided by manual audits or blanket age-based rules. Using 30,000 pseudonymized content pages from 32 clients in the FlyRank ML Internship dataset, we trained a Random Forest classifier to identify pages experiencing meaningful search-impression decline (>20% month-over-month). The model achieves a Precision@50 of 0.740 on a held-out client split — a ~3× lift over a transparent hand-rule baseline (0.240) — and an ROC AUC of 0.750 versus the baseline's 0.627. The result is a ranked refresh queue with reason codes and confidence tiers that content strategists can use to allocate editing resources to the pages most likely to benefit from intervention.
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== INTRODUCTION ===== -->
-    <section id="introduction" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 1</div>
-            <h2>Introduction &amp; Problem Statement</h2>
-
-            <p style="margin-top: 1.5rem;">Imagine a content portfolio of 10,000+ pages. Every month, some pages gain search impressions while others quietly lose ground. An SEO manager must decide: <em>which declining pages are worth the $150–$500 per-article cost of a refresh, and which should be left alone?</em></p>
-
-            <p>The naive approach — "refresh everything older than 180 days" — ignores traffic momentum, engagement quality, keyword opportunity, and content type. It treats a page that is gracefully stable the same as one actively hemorrhaging traffic. The result: wasted editorial budget on pages that don't need attention, and missed recovery windows on pages that do.</p>
-
-            <div class="card-grid">
-                <div class="card stat-card stat-rose">
-                    <div class="stat-value">54.2%</div>
-                    <div class="stat-label">Pages in active decline</div>
-                </div>
-                <div class="card stat-card stat-amber">
-                    <div class="stat-value">~80M</div>
-                    <div class="stat-label">Impressions at risk (90-day)</div>
-                </div>
-                <div class="card stat-card stat-emerald">
-                    <div class="stat-value">3.1×</div>
-                    <div class="stat-label">Model lift over hand-rules</div>
-                </div>
-            </div>
-
-            <p>This work builds a machine-learning model that ranks pages by estimated refresh priority, producing a decision-support queue — not an automatic publishing decision — that helps content teams work smarter with limited resources.</p>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== DATA ===== -->
-    <section id="data" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 2</div>
-            <h2>Data</h2>
-
-            <h3>Source &amp; Scope</h3>
-            <p>The analysis uses the <strong>FlyRank ML Internship starter dataset</strong>: <code>content_refresh_anonymized.csv</code> — a pseudonymized export of 30,000 content pages across 32 clients. All metrics are aggregated over a trailing 90-day window. The dataset contains 44 columns covering keyword context, content properties, search-console performance (GSC), analytics engagement (GA4), and derived trend signals.</p>
-
-            <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-                <div class="card stat-card stat-indigo">
-                    <div class="stat-value">30K</div>
-                    <div class="stat-label">Content pages</div>
-                </div>
-                <div class="card stat-card stat-violet">
-                    <div class="stat-value">32</div>
-                    <div class="stat-label">Pseudonymized clients</div>
-                </div>
-                <div class="card stat-card stat-sky">
-                    <div class="stat-value">44</div>
-                    <div class="stat-label">Columns</div>
-                </div>
-                <div class="card stat-card stat-emerald">
-                    <div class="stat-value">90d</div>
-                    <div class="stat-label">Trailing window</div>
-                </div>
-            </div>
-
-            <h3>Exclusions &amp; Why</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Excluded Column</th>
-                            <th>Reason</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>trend_direction</code></td>
-                            <td><strong>Label leakage.</strong> The label <code>is_declining_label</code> is derived directly from this column (<code>trend_direction == "down"</code>). Including it as a feature would give the model perfect information about the target.</td>
-                        </tr>
-                        <tr>
-                            <td><code>trend_pct</code></td>
-                            <td><strong>Label leakage.</strong> The continuous percentage change that generates the trend direction buckets — same leakage risk.</td>
-                        </tr>
-                        <tr>
-                            <td><code>content_id</code> / <code>client_id</code></td>
-                            <td><strong>Pseudonymous identifiers.</strong> Used only for grouping (client-holdout splits) and joins, never as features. The model should learn patterns, not memorize IDs.</td>
-                        </tr>
-                        <tr>
-                            <td><code>provider_used</code> / <code>model_used</code></td>
-                            <td><strong>Not model features.</strong> LLM provider/model metadata is editorial context, not a search-performance signal.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Trend Distribution</h3>
-            <div class="chart-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
-                    <rect width="100%" height="100%" fill="#ffffff"/>
-                    <text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="24" fill="#16232a">Trend direction distribution</text>
-                    <text x="178" y="116.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">down</text>
-                    <rect x="190" y="70.0" width="730.0" height="72.0" fill="#B07AA1" rx="4"/>
-                    <text x="928.0" y="116.8" font-family="Arial" font-size="13" fill="#27343b">16,262</text>
-                    <text x="178" y="198.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">stable</text>
-                    <rect x="190" y="152.0" width="267.6" height="72.0" fill="#B07AA1" rx="4"/>
-                    <text x="465.6" y="198.8" font-family="Arial" font-size="13" fill="#27343b">5,964</text>
-                    <text x="178" y="280.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">up</text>
-                    <rect x="190" y="234.0" width="197.0" height="72.0" fill="#B07AA1" rx="4"/>
-                    <text x="395.0" y="280.8" font-family="Arial" font-size="13" fill="#27343b">4,391</text>
-                    <text x="178" y="362.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">new</text>
-                    <rect x="190" y="316.0" width="100.4" height="72.0" fill="#B07AA1" rx="4"/>
-                    <text x="298.4" y="362.8" font-family="Arial" font-size="13" fill="#27343b">2,237</text>
-                    <text x="178" y="444.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">flat</text>
-                    <rect x="190" y="398.0" width="51.7" height="72.0" fill="#B07AA1" rx="4"/>
-                    <text x="249.7" y="444.8" font-family="Arial" font-size="13" fill="#27343b">1,146</text>
-                </svg>
-                <div class="chart-caption">Over half the portfolio (54.2%) is in active decline — the problem is pervasive, not niche.</div>
-            </div>
-
-            <div class="callout callout-info">
-                <strong>Public safety:</strong> No client names, domains, URLs, private queries, or credentials appear anywhere in this analysis. All identifiers are pseudonymized. The dataset is the public FlyRank ML Internship teaching slice.
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== METHODOLOGY ===== -->
-    <section id="methodology" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 3</div>
-            <h2>Methodology</h2>
-
-            <h3>Label Definition</h3>
-            <p>The binary target <code>is_declining_label</code> equals 1 when <code>trend_direction == "down"</code> — i.e., when a page's impressions dropped more than 20% from the previous 30-day window to the most recent 30-day window. This affects 16,262 of 30,000 pages (54.2%), making it a slightly imbalanced but not extreme classification task.</p>
-
-            <h3>Features</h3>
-            <p>The model uses <strong>18 numeric features</strong> and <strong>8 categorical features</strong> (one-hot encoded), selected to be safe from label leakage:</p>
-
-            <div style="margin: 1rem 0 1.5rem;">
-                <div style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Numeric Features</div>
-                <span class="feature-badge">search_volume</span>
-                <span class="feature-badge">competition</span>
-                <span class="feature-badge">cpc</span>
-                <span class="feature-badge">word_count</span>
-                <span class="feature-badge">char_count</span>
-                <span class="feature-badge">log_impressions_90d</span>
-                <span class="feature-badge">log_clicks_90d</span>
-                <span class="feature-badge">log_sessions_90d</span>
-                <span class="feature-badge">log_ai_sessions_90d</span>
-                <span class="feature-badge">days_with_impressions</span>
-                <span class="feature-badge">days_with_sessions</span>
-                <span class="feature-badge">content_age_days</span>
-                <span class="feature-badge">days_since_last_update</span>
-                <span class="feature-badge">ctr</span>
-                <span class="feature-badge">avg_position</span>
-                <span class="feature-badge">engagement_rate</span>
-                <span class="feature-badge">scroll_rate</span>
-                <span class="feature-badge">ai_traffic_pct</span>
-            </div>
-            <div style="margin: 1rem 0 1.5rem;">
-                <div style="margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Categorical Features</div>
-                <span class="feature-badge">competition_level</span>
-                <span class="feature-badge">content_type</span>
-                <span class="feature-badge">main_intent</span>
-                <span class="feature-badge">age_tier</span>
-                <span class="feature-badge">freshness_tier</span>
-                <span class="feature-badge">word_count_tier</span>
-                <span class="feature-badge">impression_tier</span>
-                <span class="feature-badge">position_tier</span>
-            </div>
-
-            <h3>Baseline: Transparent Hand-Rule Score</h3>
-            <p>Before training any model, we built a transparent, interpretable baseline — a weighted composite score combining four sub-scores:</p>
-
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr><th>Component</th><th>Weight</th><th>Logic</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Visibility Score</td><td>40%</td><td>Percentile rank of log(impressions_90d)</td></tr>
-                        <tr><td>Freshness Risk</td><td>30%</td><td>Percentile rank of days_since_last_update</td></tr>
-                        <tr><td>Position Opportunity</td><td>25%</td><td>(1 − normalized position) × visibility</td></tr>
-                        <tr><td>Depth Gap</td><td>5%</td><td>(1 − percentile rank of word_count) × visibility</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p>The baseline also assigns human-readable reason codes (e.g., <code>stale_visible_page</code>, <code>declining_with_demand</code>) — making every recommendation explainable.</p>
-
-            <h3>Models Trained</h3>
-            <ul class="method-list">
-                <li>
-                    <div class="method-icon">🌲</div>
-                    <div><strong>Random Forest</strong> — 200 trees, max depth 10, min 25 samples/leaf, balanced subsample class weights. Captures non-linear feature interactions while resisting overfitting.</div>
-                </li>
-                <li>
-                    <div class="method-icon">📐</div>
-                    <div><strong>Logistic Regression</strong> — StandardScaler → balanced class weights, max 1,000 iterations. A simple linear benchmark to test if the pattern is non-linear.</div>
-                </li>
-                <li>
-                    <div class="method-icon">🌿</div>
-                    <div><strong>Decision Tree</strong> — max depth 5, min 50 samples/leaf, balanced class weights. Single-tree interpretability check.</div>
-                </li>
-            </ul>
-
-            <h3>Validation Design: Client-Holdout Split</h3>
-            <p>We do <strong>not</strong> use a naive random 80/20 row split. Instead, we hold out ~20% of <em>clients</em> entirely — ensuring no client's pages appear in both train and test. This prevents the model from memorizing client-specific patterns and tests generalization to unseen clients.</p>
-
-            <div class="callout">
-                <strong>Leakage checks performed:</strong> (1) Verified that <code>trend_direction</code> and <code>trend_pct</code> are excluded from all feature lists. (2) Trained with <code>trend_pct</code> deliberately included and confirmed it produces near-perfect AUC → leakage confirmed and excluded. (3) Verified no 30-day comparison columns that directly encode the label period are used as features without documented justification.
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== RESULTS ===== -->
-    <section id="results" class="reveal">
-        <div class="container-wide">
-            <div class="section-label">Section 4</div>
-            <h2>Results</h2>
-
-            <p style="margin-top: 1.5rem;">All models and the baseline are evaluated on the <strong>same client-holdout test set</strong>. The base rate is 54.2% (majority-class), so any metric must be interpreted against that baseline — a precision of 54% would simply be "guessing the majority class."</p>
-
-            <h3>Model Comparison</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Model</th>
-                            <th>ROC AUC</th>
-                            <th>Avg Precision</th>
-                            <th>Precision@50</th>
-                            <th>Recall</th>
-                            <th>F1</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="highlight-row">
-                            <td>🏆 Random Forest</td>
-                            <td class="metric-good">0.750</td>
-                            <td class="metric-good">0.618</td>
-                            <td class="metric-good">0.740</td>
-                            <td>0.744</td>
-                            <td>0.640</td>
-                        </tr>
-                        <tr>
-                            <td>Decision Tree</td>
-                            <td class="metric-mid">0.742</td>
-                            <td class="metric-mid">0.575</td>
-                            <td class="metric-mid">0.540</td>
-                            <td>0.716</td>
-                            <td>0.634</td>
-                        </tr>
-                        <tr>
-                            <td>Logistic Regression</td>
-                            <td class="metric-mid">0.700</td>
-                            <td class="metric-mid">0.522</td>
-                            <td class="metric-mid">0.400</td>
-                            <td>0.567</td>
-                            <td>0.566</td>
-                        </tr>
-                        <tr>
-                            <td>Baseline Rules</td>
-                            <td class="metric-base">0.627</td>
-                            <td class="metric-base">0.468</td>
-                            <td class="metric-base">0.240</td>
-                            <td>—</td>
-                            <td>—</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="callout callout-info">
-                <strong>Key result:</strong> The Random Forest's Precision@50 of <strong>0.740</strong> means that among the top-50 pages flagged for refresh, 74% are genuinely declining — versus only 24% with hand-rules. That's a <strong>3.1× lift</strong>. Since the base rate is 54.2%, the model's 74% represents a meaningful 1.37× multiplier even over naive majority-class guessing, and the AUC of 0.750 confirms real discriminative power beyond chance.
-            </div>
-
-            <h3>Feature Importance</h3>
-            <div class="chart-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
-                    <rect width="100%" height="100%" fill="#ffffff"/>
-                    <text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="24" fill="#16232a">Top model features</text>
-                    <text x="178" y="85.7" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">days_with_impressions</text>
-                    <rect x="190" y="70.0" width="115.2" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="313.2" y="85.7" font-family="Arial" font-size="13" fill="#27343b">0.158</text>
-                    <text x="178" y="119.9" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">log_impressions_90d</text>
-                    <rect x="190" y="104.2" width="93.6" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="291.6" y="119.9" font-family="Arial" font-size="13" fill="#27343b">0.128</text>
-                    <text x="178" y="154.0" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">avg_position</text>
-                    <rect x="190" y="138.3" width="79.6" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="277.6" y="154.0" font-family="Arial" font-size="13" fill="#27343b">0.109</text>
-                    <text x="178" y="188.2" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">content_age_days</text>
-                    <rect x="190" y="172.5" width="69.7" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="267.7" y="188.2" font-family="Arial" font-size="13" fill="#27343b">0.096</text>
-                    <text x="178" y="222.4" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">char_count</text>
-                    <rect x="190" y="206.7" width="31.1" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="229.1" y="222.4" font-family="Arial" font-size="13" fill="#27343b">0.043</text>
-                    <text x="178" y="256.5" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">word_count</text>
-                    <rect x="190" y="240.8" width="29.0" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="227.0" y="256.5" font-family="Arial" font-size="13" fill="#27343b">0.040</text>
-                    <text x="178" y="290.7" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">log_clicks_90d</text>
-                    <rect x="190" y="275.0" width="25.2" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="223.2" y="290.7" font-family="Arial" font-size="13" fill="#27343b">0.035</text>
-                    <text x="178" y="324.9" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">ctr</text>
-                    <rect x="190" y="309.2" width="24.1" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="222.1" y="324.9" font-family="Arial" font-size="13" fill="#27343b">0.033</text>
-                    <text x="178" y="359.0" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">scroll_rate</text>
-                    <rect x="190" y="343.3" width="22.7" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="220.7" y="359.0" font-family="Arial" font-size="13" fill="#27343b">0.031</text>
-                    <text x="178" y="393.2" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">days_with_sessions</text>
-                    <rect x="190" y="377.5" width="20.4" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="218.4" y="393.2" font-family="Arial" font-size="13" fill="#27343b">0.028</text>
-                    <text x="178" y="427.4" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">position_tier_top_3</text>
-                    <rect x="190" y="411.7" width="19.2" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="217.2" y="427.4" font-family="Arial" font-size="13" fill="#27343b">0.026</text>
-                    <text x="178" y="461.5" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">log_sessions_90d</text>
-                    <rect x="190" y="445.8" width="16.6" height="24.2" fill="#4E79A7" rx="4"/>
-                    <text x="214.6" y="461.5" font-family="Arial" font-size="13" fill="#27343b">0.023</text>
-                </svg>
-                <div class="chart-caption">Impression consistency (days_with_impressions) is the strongest predictor of decline — pages with sporadic visibility are most at risk.</div>
-            </div>
-
-            <h3>Refresh Queue</h3>
-            <div class="chart-grid">
-                <div class="chart-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
-                        <rect width="100%" height="100%" fill="#ffffff"/>
-                        <text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="24" fill="#16232a">Suggested action mix</text>
-                        <text x="178" y="116.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">monitor</text>
-                        <rect x="190" y="70.0" width="730.0" height="72.0" fill="#426B69" rx="4"/>
-                        <text x="928.0" y="116.8" font-family="Arial" font-size="13" fill="#27343b">13,093</text>
-                        <text x="178" y="198.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">refresh</text>
-                        <rect x="190" y="152.0" width="456.0" height="72.0" fill="#426B69" rx="4"/>
-                        <text x="654.0" y="198.8" font-family="Arial" font-size="13" fill="#27343b">8,178</text>
-                        <text x="178" y="280.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">refresh_and_review_ctr</text>
-                        <rect x="190" y="234.0" width="371.2" height="72.0" fill="#426B69" rx="4"/>
-                        <text x="569.2" y="280.8" font-family="Arial" font-size="13" fill="#27343b">6,657</text>
-                        <text x="178" y="362.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">refresh_and_review_engagement</text>
-                        <rect x="190" y="316.0" width="111.0" height="72.0" fill="#426B69" rx="4"/>
-                        <text x="309.0" y="362.8" font-family="Arial" font-size="13" fill="#27343b">1,990</text>
-                        <text x="178" y="444.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">expand_and_refresh</text>
-                        <rect x="190" y="398.0" width="4.6" height="72.0" fill="#426B69" rx="4"/>
-                        <text x="202.6" y="444.8" font-family="Arial" font-size="13" fill="#27343b">82</text>
-                    </svg>
-                    <div class="chart-caption">Action distribution: ~44% monitor, ~27% refresh, ~22% review CTR, ~7% review engagement.</div>
+    <main>
+        <!-- Hero Section -->
+        <section id="about" class="hero-section">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="badge badge-accent">
+                        <span class="badge-dot"></span> FlyRank AI & ML Engineering Intern
+                    </div>
+                    <h1 class="hero-title">
+                        Building Autonomous Search ML Systems & Content Triage Agents
+                    </h1>
+                    <p class="hero-subtitle">
+                        Hi, I'm <strong class="text-white">M. B. Qayyum</strong>. I specialize in applying machine learning, feature leakage auditing, and autonomous agent loops to enterprise search portfolios exceeding 10,000+ pages.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <a href="https://linkedin.com/in/mbqayyum" target="_blank" rel="noopener" class="btn btn-primary" id="link-linkedin">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                            LinkedIn Profile
+                        </a>
+                        <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener" class="btn btn-secondary" id="link-github">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                            GitHub Repository
+                        </a>
+                    </div>
                 </div>
 
-                <div class="chart-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
-                        <rect width="100%" height="100%" fill="#ffffff"/>
-                        <text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="24" fill="#16232a">Refresh queue confidence</text>
-                        <text x="178" y="152.3" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">high</text>
-                        <rect x="190" y="70.0" width="175.4" height="126.7" fill="#6F4E7C" rx="4"/>
-                        <text x="373.4" y="152.3" font-family="Arial" font-size="13" fill="#27343b">3,605</text>
-                        <text x="178" y="289.0" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">medium</text>
-                        <rect x="190" y="206.7" width="554.6" height="126.7" fill="#6F4E7C" rx="4"/>
-                        <text x="752.6" y="289.0" font-family="Arial" font-size="13" fill="#27343b">11,395</text>
-                        <text x="178" y="425.7" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">low</text>
-                        <rect x="190" y="343.3" width="730.0" height="126.7" fill="#6F4E7C" rx="4"/>
-                        <text x="928.0" y="425.7" font-family="Arial" font-size="13" fill="#27343b">15,000</text>
-                    </svg>
-                    <div class="chart-caption">3,605 high-confidence pages warrant immediate editorial attention.</div>
+                <div class="hero-card glass-panel">
+                    <div class="card-header">
+                        <span class="status-indicator active"></span>
+                        <span class="card-title-text">Active System Context</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">Internship Track:</span>
+                            <span class="stat-value font-mono">FlyRank AI Fluency</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Current Phase:</span>
+                            <span class="stat-value font-mono">Phase: Build (Core)</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Evaluated Warehouse:</span>
+                            <span class="stat-value font-mono">30,000 Starter / 79M Release</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Deployed Host:</span>
+                            <span class="stat-value font-mono highlight-green">GitHub Pages / Netlify</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Target Subdomain:</span>
+                            <span class="stat-value font-mono highlight-purple">mbqayyum.flyrank.ai</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <h3>Reason Codes</h3>
-            <div class="chart-container">
-                <svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
-                    <rect width="100%" height="100%" fill="#ffffff"/>
-                    <text x="480.0" y="34" text-anchor="middle" font-family="Arial" font-size="24" fill="#16232a">Top refresh reason codes</text>
-                    <text x="178" y="87.7" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">declining_with_demand</text>
-                    <rect x="190" y="70.0" width="730.0" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="928.0" y="87.7" font-family="Arial" font-size="13" fill="#27343b">13,225</text>
-                    <text x="178" y="125.0" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">visible_model_opportunity</text>
-                    <rect x="190" y="107.3" width="591.7" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="789.7" y="125.0" font-family="Arial" font-size="13" fill="#27343b">10,678</text>
-                    <text x="178" y="162.3" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">low_ctr_visible_page</text>
-                    <rect x="190" y="144.5" width="541.7" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="739.7" y="162.3" font-family="Arial" font-size="13" fill="#27343b">9,764</text>
-                    <text x="178" y="199.5" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">ctr_review_candidate</text>
-                    <rect x="190" y="181.8" width="541.7" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="739.7" y="199.5" font-family="Arial" font-size="13" fill="#27343b">9,764</text>
-                    <text x="178" y="236.8" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">general_refresh_review</text>
-                    <rect x="190" y="219.1" width="506.0" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="704.0" y="236.8" font-family="Arial" font-size="13" fill="#27343b">9,123</text>
-                    <text x="178" y="274.1" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">model_decline_risk</text>
-                    <rect x="190" y="256.4" width="467.6" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="665.6" y="274.1" font-family="Arial" font-size="13" fill="#27343b">8,424</text>
-                    <text x="178" y="311.4" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">page_one_decay_risk</text>
-                    <rect x="190" y="293.6" width="392.8" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="590.8" y="311.4" font-family="Arial" font-size="13" fill="#27343b">7,083</text>
-                    <text x="178" y="348.6" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">low_engagement_visible_page</text>
-                    <rect x="190" y="330.9" width="361.2" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="559.2" y="348.6" font-family="Arial" font-size="13" fill="#27343b">6,510</text>
-                    <text x="178" y="385.9" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">engagement_review_candidate</text>
-                    <rect x="190" y="368.2" width="361.2" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="559.2" y="385.9" font-family="Arial" font-size="13" fill="#27343b">6,510</text>
-                    <text x="178" y="423.2" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">thin_visible_page</text>
-                    <rect x="190" y="405.5" width="4.6" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="202.6" y="423.2" font-family="Arial" font-size="13" fill="#27343b">82</text>
-                    <text x="178" y="460.5" text-anchor="end" font-family="Arial" font-size="13" fill="#27343b">stale_visible_page</text>
-                    <rect x="190" y="442.7" width="0.9" height="27.3" fill="#8C6BB1" rx="4"/>
-                    <text x="198.9" y="460.5" font-family="Arial" font-size="13" fill="#27343b">17</text>
-                </svg>
-                <div class="chart-caption">Every page in the queue comes with machine-readable reason codes — not just a score, but "why."</div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== LIMITATIONS ===== -->
-    <section id="limitations" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 5</div>
-            <h2>Limitations &amp; Honest Framing</h2>
-
-            <p style="margin-top: 1.5rem;">We state these limitations ourselves, before a reader does — because doing so is what earns trust in applied research.</p>
-
-            <ul class="limitation-list">
-                <li><strong>Observational, not causal.</strong> The model identifies <em>associations</em> between content signals and decline — it does not prove that refreshing a page <em>causes</em> recovery. A controlled experiment (refreshing a random subset and measuring lift) would be needed for causal claims.</li>
-                <li><strong>This does not "predict Google."</strong> We score pages using observed, lagging signals from a fixed time window. The model does not forecast algorithmic changes, core updates, or future search-engine behavior.</li>
-                <li><strong>No guarantee of ROI.</strong> A high refresh-priority score means the page shows patterns <em>associated with</em> decline in this dataset. It does not promise that editing the page will recover traffic. External factors — competitor content, intent shifts, seasonality — are outside the model's scope.</li>
-                <li><strong>Cross-client generalization is untested.</strong> The model is validated on held-out clients <em>from the same 32-client cohort</em>. Performance on a client in a very different vertical or content strategy should be validated before acting on its scores.</li>
-                <li><strong>Base rate context matters.</strong> With 54.2% of pages declining, any metric (precision, accuracy) must be read against that majority-class rate. We report AUC and lift over baseline to isolate real discriminative power from class imbalance.</li>
-                <li><strong>Snapshot, not time-series.</strong> The 30k-row starter dataset is a single 90-day cross-section. A temporal validation (training on earlier months, testing on later months) on the full warehouse release would further strengthen confidence.</li>
-                <li><strong>All claims use directional / decision-support language.</strong> We say "associated with," "observed," "the model suggests." We do not say "causes," "proves," or "will."</li>
-            </ul>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== RECOMMENDATIONS ===== -->
-    <section id="recommendations" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 6</div>
-            <h2>Ranked Recommendations</h2>
-
-            <p style="margin-top: 1.5rem;">The following action playbook translates model output into editorial decisions. Each tier is ordered by urgency and expected impact. <strong>Start at Tier 1; move down as capacity allows.</strong></p>
-
-            <div class="action-item">
-                <div class="action-rank">1</div>
-                <div class="action-content">
-                    <h4>Refresh &amp; Review CTR</h4>
-                    <p>6,657 pages with high impressions but low click-through rates (<0.5%). These pages are <em>visible but not compelling</em> — refreshing titles, meta descriptions, and opening content may recover clicks without needing new ranking positions.</p>
-                    <span class="action-tag tag-high">High Priority · 22%</span>
+        <!-- Quick Links & Contact Bar -->
+        <section id="contact" class="contact-bar-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <a href="https://linkedin.com/in/mbqayyum" target="_blank" class="contact-card">
+                        <div class="icon-wrapper">💼</div>
+                        <div class="contact-info">
+                            <h3>LinkedIn Profile</h3>
+                            <p>Professional background & network</p>
+                        </div>
+                    </a>
+                    <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" class="contact-card">
+                        <div class="icon-wrapper">🐙</div>
+                        <div class="contact-info">
+                            <h3>GitHub Codebase</h3>
+                            <p>Open source ML & agent repos</p>
+                        </div>
+                    </a>
+                    <a href="https://raw.githubusercontent.com/mbqayyum/FlyRank_ML_Intern/main/work/ai_fluency_build_core/BUILD_CORE_MVP_DELIVERABLE.md" target="_blank" class="contact-card" id="link-cv">
+                        <div class="icon-wrapper">📄</div>
+                        <div class="contact-info">
+                            <h3>Curriculum Vitae</h3>
+                            <p>Download technical resume</p>
+                        </div>
+                    </a>
+                    <a href="https://calendly.com/mbqayyum-flyrank/30min" target="_blank" class="contact-card" id="link-booking">
+                        <div class="icon-wrapper">📅</div>
+                        <div class="contact-info">
+                            <h3>Booking Link</h3>
+                            <p>Schedule a 30-min technical call</p>
+                        </div>
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <div class="action-item">
-                <div class="action-rank">2</div>
-                <div class="action-content">
-                    <h4>Refresh</h4>
-                    <p>8,178 pages flagged for general content refresh — declining with demand, model-flagged decline risk, or stale visibility. Update content, add new information, review internal linking, and re-optimize for current search intent.</p>
-                    <span class="action-tag tag-high">High Priority · 27%</span>
+        <!-- Projects Showcase Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Core Internship Systems</h2>
+                    <p class="section-subtitle">Autonomous agents, non-leaky ML models, and workflow engines built during the FlyRank track.</p>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <article class="project-card glass-panel">
+                        <div class="project-badge">Checkpoint 1 MVP Agent</div>
+                        <h3 class="project-title">FlyRank Refresh Scout & Queue Manager</h3>
+                        <p class="project-desc">
+                            An autonomous AI content triage agent operating a 5-step control loop: DuckDB performance queries, Scikit-Learn Random Forest decay scoring, reason code assignment, SERP layout context fetcher, and structured Markdown ticket brief generation with skeptic review notes.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python 3</span>
+                            <span class="tech-tag">DuckDB</span>
+                            <span class="tech-tag">Scikit-Learn</span>
+                            <span class="tech-tag">Control Loop</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/flyrank_refresh_scout_agent.py" target="_blank" class="link-item">
+                                View Agent Code →
+                            </a>
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/outputs/refresh_scout_queue.md" target="_blank" class="link-item">
+                                Sample Queue Briefs →
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Project 2 -->
+                    <article class="project-card glass-panel">
+                        <div class="project-badge">No-Code Workflow Engine</div>
+                        <h3 class="project-title">Source-Grounded Search ML Industry Brief Pipeline</h3>
+                        <p class="project-desc">
+                            A chained 4-step research pipeline combining NotebookLM (fact extraction), Claude Project (executive drafting), Claude Skeptic Persona (adversarial leakage audit), and n8n orchestration. Reduces briefing time from 4 hours to 6 minutes.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">n8n Blueprint</span>
+                            <span class="tech-tag">NotebookLM</span>
+                            <span class="tech-tag">Claude Project</span>
+                            <span class="tech-tag">Audit Protocol</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/no_code_workflow.md" target="_blank" class="link-item">
+                                Pipeline Documentation →
+                            </a>
+                        </div>
+                    </article>
                 </div>
             </div>
+        </section>
 
-            <div class="action-item">
-                <div class="action-rank">3</div>
-                <div class="action-content">
-                    <h4>Refresh &amp; Review Engagement</h4>
-                    <p>1,990 pages with sufficient sessions (≥30) but low engagement rate (<30%) or low scroll rate (<30%). The traffic arrives, but readers leave quickly. Focus on content quality, page structure, and reader experience.</p>
-                    <span class="action-tag tag-review">Review · 7%</span>
+        <!-- Subdomain DNS Pointer Checklist -->
+        <section id="dns-status" class="section bg-alt">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Subdomain & Infrastructure Pointer Checklist</h2>
+                    <p class="section-subtitle">Preparation for capstone migration onto the official <code>mbqayyum.flyrank.ai</code> subdomain.</p>
+                </div>
+
+                <div class="dns-card glass-panel">
+                    <div class="dns-grid">
+                        <div class="dns-info">
+                            <h3>CNAME Routing Architecture</h3>
+                            <p>
+                                Once the capstone paper is approved, FlyRank Ops provisions a CNAME record mapping <code>mbqayyum.flyrank.ai</code> to this host location (<code>mbqayyum.github.io</code> / <code>mbqayyum.netlify.app</code>). The host automatically issues a Let's Encrypt TLS certificate for seamless HTTPS redirection.
+                            </p>
+                            
+                            <ul class="dns-checklist">
+                                <li class="checked">
+                                    <span class="check-icon">✓</span> Free HTTPS Hosting Live & Verified
+                                </li>
+                                <li class="checked">
+                                    <span class="check-icon">✓</span> Non-Technical DNS Walkthrough Documented
+                                </li>
+                                <li class="pending">
+                                    <span class="check-icon">⏳</span> Ops CNAME Provisioning (Awaiting Capstone Approval)
+                                </li>
+                                <li class="pending">
+                                    <span class="check-icon">⏳</span> Host Custom Domain Pointer & SSL Lock Confirmation
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="dns-code-block">
+                            <div class="code-header">DNS Record Payload</div>
+                            <pre><code># Domain Name System (DNS) Record
+Type:   CNAME
+Host:   mbqayyum.flyrank.ai
+Value:  mbqayyum.github.io (or mbqayyum.netlify.app)
+TTL:    3600 (1 Hour)
+Status: READY FOR PROVISIONING</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="action-item">
-                <div class="action-rank">4</div>
-                <div class="action-content">
-                    <h4>Expand &amp; Refresh</h4>
-                    <p>82 thin pages (<1,200 words) that still have meaningful visibility (≥250 impressions). These are content-depth gaps — expanding them with substantive content may unlock latent ranking potential.</p>
-                    <span class="action-tag tag-review">Review · <1%</span>
+        <!-- Blog & Capstone Space -->
+        <section id="posts" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Research Posts & Capstone Showcase</h2>
+                    <p class="section-subtitle">Upcoming technical write-ups, leakage audit logs, and capstone findings.</p>
+                </div>
+
+                <div class="posts-grid">
+                    <div class="post-card glass-panel">
+                        <span class="post-date">August 2026</span>
+                        <h3 class="post-title">Hunting Label Leakage in Content Refresh Datasets</h3>
+                        <p class="post-excerpt">
+                            Why standard models get 0.99 ROC-AUC on <code>trend_direction</code> and fail in production. Lessons from 30,000 anonymized search rows.
+                        </p>
+                    </div>
+
+                    <div class="post-card glass-panel">
+                        <span class="post-date">Upcoming (Capstone)</span>
+                        <h3 class="post-title">Enterprise Content Refresh Triage at 79M Row Scale</h3>
+                        <p class="post-excerpt">
+                            The full capstone research paper deploying Random Forest vs baseline transparent rules across DuckDB Hugging Face warehouse tables.
+                        </p>
+                    </div>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <div class="action-item">
-                <div class="action-rank">5</div>
-                <div class="action-content">
-                    <h4>Monitor</h4>
-                    <p>13,093 pages that don't trigger urgent action signals. Continue monitoring — re-score monthly to catch new declines early. These pages are either stable, growing, or too low-visibility to justify refresh investment now.</p>
-                    <span class="action-tag tag-monitor">Monitor · 44%</span>
-                </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p>&copy; <span id="year">2026</span> M. B. Qayyum. FlyRank AI Internship Submission.</p>
+            <div class="footer-links">
+                <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank">Repository</a>
+                <a href="https://linkedin.com/in/mbqayyum" target="_blank">LinkedIn</a>
+                <a href="#about">Back to Top ↑</a>
             </div>
-
-            <div class="callout">
-                <strong>How to use this:</strong> Treat the queue as a <em>reviewer aid</em>, not an automatic publishing decision. The safest first production use is to inspect high-confidence rows, verify the page manually, compare the recommendation against editorial context, and then act. The reason codes tell you <em>why</em> — use them.
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== REPRODUCIBILITY ===== -->
-    <section id="reproducibility" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 7</div>
-            <h2>Reproducibility</h2>
-
-            <h3>Environment</h3>
-            <pre><code>pip install -r requirements.txt
-# Core: pandas, numpy, scikit-learn, matplotlib, duckdb, huggingface_hub, reportlab</code></pre>
-
-            <h3>Run the Full Pipeline</h3>
-            <pre><code># From the repo root:
-python scripts/run_all.py
-
-# Steps (in order):
-#   01_prepare_features.py   → data/processed/refresh_feature_vector.csv
-#   02_baseline_score.py     → data/processed/baseline_refresh_queue.csv
-#   03_train_model.py        → data/processed/model_predictions.csv + outputs/model_results.json
-#   04_evaluate_and_export.py → outputs/refresh_queue.csv + outputs/model_report.md + charts/
-#   05_build_pdf_report.py   → outputs/flyrank_refresh_model_results.pdf</code></pre>
-
-            <h3>Random Seeds</h3>
-            <p>All random state is fixed at <code>RANDOM_STATE = 42</code> in <code>scripts/03_train_model.py</code>. The baseline (Precision@50 = 0.240) reproduces exactly. Random Forest numbers may vary slightly across numpy/scikit-learn versions (~0.68–0.74); the stable claim is the <strong>~3× lift over baseline</strong>.</p>
-
-            <h3>Notebooks</h3>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr><th>Notebook</th><th>Assignment</th><th>Description</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><code>w01_research_question.ipynb</code></td><td>ML-02</td><td>Lane selection, research question, initial EDA</td></tr>
-                        <tr><td><code>w02_ml_task_framing.ipynb</code></td><td>ML-03</td><td>ML task type, target definition, success metric</td></tr>
-                        <tr><td><code>w03_data_contract.ipynb</code></td><td>ML-04</td><td>Schema expectations, exclusion rules</td></tr>
-                        <tr><td><code>w03_feature_leakage_check.ipynb</code></td><td>ML-05</td><td>Leakage demonstration and verification</td></tr>
-                        <tr><td><code>w04_signal_audit.ipynb</code></td><td>ML-06</td><td>EDA on top signals, declining vs non-declining</td></tr>
-                        <tr><td><code>w04_baseline_score.ipynb</code></td><td>ML-07</td><td>Transparent hand-rule baseline</td></tr>
-                        <tr><td><code>w05_model.ipynb</code></td><td>ML-08</td><td>Model training, comparison, selection</td></tr>
-                        <tr><td><code>w06_validation_audit.ipynb</code></td><td>ML-09</td><td>Client-holdout validation, error analysis</td></tr>
-                        <tr><td><code>w07_action_playbook.ipynb</code></td><td>ML-10</td><td>Ranked action recommendations</td></tr>
-                        <tr><td><code>capstone.ipynb</code></td><td>ML-11</td><td>End-to-end capstone (mirrors this paper)</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3>Repository</h3>
-            <p>📂 <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener">github.com/mbqayyum/FlyRank_ML_Intern</a></p>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- ===== ACKNOWLEDGMENTS ===== -->
-    <section id="acknowledgments" class="reveal">
-        <div class="container">
-            <div class="section-label">Section 8</div>
-            <h2>Acknowledgments &amp; Data Credit</h2>
-
-            <div class="card" style="margin-top: 1.5rem;">
-                <p>Built on the <strong>FlyRank ML Internship dataset</strong> — a pseudonymized warehouse of real search-performance data provided for educational and research purposes.</p>
-                <p style="margin-bottom: 0;">Data source: <a href="https://flyrank.ai" target="_blank" rel="noopener">flyrank.ai</a></p>
-            </div>
-
-            <p style="margin-top: 1.5rem;">The reference pipeline, skill library, and mentorship framework were provided by the FlyRank ML Internship program. All analysis, model training, and interpretation are the author's own work.</p>
-
-            <p style="color: var(--text-muted); font-size: 0.9rem;">This research uses only the publicly available starter CSV (30,000 rows) and does not include, redistribute, or reveal any client-identifying information. All identifiers are pseudonymized. No client names, domains, URLs, private queries, or credentials appear in this paper or the associated repository.</p>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer>
-        <div class="container">
-            <p>© 2026 M. B. Qayyum · FlyRank ML Internship Capstone · Lane 2: Refresh / Content Opportunity Scoring</p>
-            <p style="margin-top: 0.5rem;">Built on the <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank ML Internship dataset</a> · <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener">View Repository</a></p>
         </div>
     </footer>
 
-    <!-- ===== SCROLL REVEAL ===== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        });
-    </script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
