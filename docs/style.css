@@ -291,6 +291,32 @@ a:hover {
     flex-wrap: wrap;
 }
 
+.hero-sublinks {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.sublink-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.sublink-item:hover {
+    color: var(--text-primary);
+}
+
+.sublink-sep {
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 0.8rem;
+}
+
 /* Hero Card */
 .hero-card {
     padding: 28px;
@@ -361,6 +387,12 @@ a:hover {
     transition: var(--transition);
 }
 
+.contact-card-featured {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+}
+
 .contact-card:hover {
     border-color: var(--primary);
     transform: translateY(-3px);
@@ -414,7 +446,7 @@ a:hover {
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     gap: 28px;
 }
 
@@ -613,8 +645,13 @@ a:hover {
 
 /* Responsive Styles */
 @media (max-width: 900px) {
+    .hero-section {
+        padding: 120px 0 60px;
+    }
+
     .hero-grid, .dns-grid {
         grid-template-columns: 1fr;
+        gap: 36px;
     }
     
     .hero-title {
@@ -623,6 +660,10 @@ a:hover {
 
     .mobile-toggle {
         display: flex;
+        min-height: 44px;
+        min-width: 44px;
+        align-items: center;
+        justify-content: center;
     }
 
     .nav-links {
@@ -640,5 +681,89 @@ a:hover {
 
     .nav-links.active {
         display: flex;
+    }
+
+    .nav-links a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 6px 0;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .hero-section {
+        padding: 100px 0 40px;
+    }
+
+    .hero-title {
+        font-size: 1.85rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 24px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .section {
+        padding: 50px 0;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .project-card, .dns-card, .hero-card {
+        padding: 20px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.65rem;
+    }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+
+    .stat-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .dns-code-block pre {
+        font-size: 0.75rem;
+        padding: 14px;
+        overflow-x: auto;
     }
 }

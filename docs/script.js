@@ -42,12 +42,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 4. Analytics Click Tracking Simulation (console logging)
-    const trackedLinks = ['link-linkedin', 'link-github', 'link-cv', 'link-booking'];
+    const trackedLinks = [
+        'link-capstone-hero',
+        'link-booking-hero',
+        'link-github-hero',
+        'link-linkedin-hero',
+        'link-resume-hero',
+        'link-booking',
+        'link-research-card',
+        'link-cv'
+    ];
     trackedLinks.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
             el.addEventListener('click', () => {
-                console.log(`[FlyRank Analytics] Click tracked for outbound link: ${id}`);
+                console.log(`[FlyRank Analytics] Click tracked for interactive CTA / link: ${id}`);
             });
         }
     });
