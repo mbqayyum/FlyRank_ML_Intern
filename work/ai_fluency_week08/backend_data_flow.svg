@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%" style="background:#0F172A; font-family: 'Outfit', sans-serif;">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bgCanvas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0EA5E9" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="900" height="500" fill="url(#bgCanvas)" />
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#1E293B" stroke-width="1" opacity="0.35">
+    <path d="M 0,100 L 900,100 M 0,200 L 900,200 M 0,300 L 900,300 M 0,400 L 900,400" />
+    <path d="M 150,0 L 150,500 M 300,0 L 300,500 M 450,0 L 450,500 M 600,0 L 600,500 M 750,0 L 750,500" />
+  </g>
+
+  <!-- Header Section -->
+  <g transform="translate(50, 45)">
+    <rect x="0" y="0" width="160" height="26" rx="13" fill="#0EA5E9" fill-opacity="0.15" stroke="#0EA5E9" stroke-width="1" />
+    <circle cx="14" cy="13" r="4" fill="#38BDF8" />
+    <text x="26" y="17" font-size="11" font-weight="700" fill="#38BDF8" letter-spacing="1">WEEK 8 ARCHITECTURE</text>
+
+    <text x="0" y="55" font-size="24" font-weight="700" fill="#F8FAFC">Dynamic Feature Backend Data Flow</text>
+    <text x="0" y="76" font-size="13" font-weight="400" fill="#94A3B8">End-to-end trace of a visitor inquiry submission on the free-tier serverless pipeline</text>
+  </g>
+
+  <!-- FLOW NODES CONTAINER -->
+
+  <!-- NODE 1: Browser Form Input -->
+  <g transform="translate(50, 150)" filter="url(#cardShadow)">
+    <rect width="140" height="230" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    <circle cx="70" cy="40" r="22" fill="#0F172A" stroke="#0EA5E9" stroke-width="2" />
+    <text x="70" y="46" font-size="18" text-anchor="middle">📝</text>
+    
+    <text x="70" y="85" font-size="13" font-weight="700" fill="#F8FAFC" text-anchor="middle">1. Client DOM</text>
+    <text x="70" y="103" font-size="10" font-weight="500" fill="#0EA5E9" text-anchor="middle">docs/index.html</text>
+
+    <line x1="20" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="70" y="142" font-size="10" fill="#94A3B8" text-anchor="middle">• Name &amp; Email</text>
+    <text x="70" y="160" font-size="10" fill="#94A3B8" text-anchor="middle">• Role / Category</text>
+    <text x="70" y="178" font-size="10" fill="#94A3B8" text-anchor="middle">• Inquiry Scope</text>
+    <text x="70" y="196" font-size="10" fill="#94A3B8" text-anchor="middle">• Project Details</text>
+
+    <rect x="25" y="210" width="90" height="6" rx="3" fill="#0EA5E9" fill-opacity="0.3" />
+  </g>
+
+  <!-- ARROW 1 -> 2 -->
+  <g transform="translate(195, 255)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#0EA5E9" stroke-width="2" stroke-dasharray="4,4" />
+    <polygon points="25,0 20,-4 20,4" fill="#0EA5E9" />
+    <text x="12" y="-8" font-size="9" fill="#38BDF8" text-anchor="middle" font-family="'JetBrains Mono', monospace">submit</text>
+  </g>
+
+  <!-- NODE 2: JavaScript Validation -->
+  <g transform="translate(225, 150)" filter="url(#cardShadow)">
+    <rect width="140" height="230" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    <circle cx="70" cy="40" r="22" fill="#0F172A" stroke="#38BDF8" stroke-width="2" />
+    <text x="70" y="46" font-size="18" text-anchor="middle">⚙️</text>
+    
+    <text x="70" y="85" font-size="13" font-weight="700" fill="#F8FAFC" text-anchor="middle">2. JS Controller</text>
+    <text x="70" y="103" font-size="10" font-weight="500" fill="#38BDF8" text-anchor="middle">docs/script.js</text>
+
+    <line x1="20" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="70" y="142" font-size="10" fill="#94A3B8" text-anchor="middle">• e.preventDefault()</text>
+    <text x="70" y="160" font-size="10" fill="#94A3B8" text-anchor="middle">• Regex Email Check</text>
+    <text x="70" y="178" font-size="10" fill="#94A3B8" text-anchor="middle">• Spinner Animation</text>
+    <text x="70" y="196" font-size="10" fill="#94A3B8" text-anchor="middle">• JSON Packaging</text>
+
+    <rect x="25" y="210" width="90" height="6" rx="3" fill="#38BDF8" fill-opacity="0.3" />
+  </g>
+
+  <!-- ARROW 2 -> 3 -->
+  <g transform="translate(370, 255)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#38BDF8" stroke-width="2" />
+    <polygon points="25,0 20,-4 20,4" fill="#38BDF8" />
+    <text x="12" y="-8" font-size="9" fill="#38BDF8" text-anchor="middle" font-family="'JetBrains Mono', monospace">POST</text>
+  </g>
+
+  <!-- NODE 3: HTTPS Network Transport -->
+  <g transform="translate(400, 150)" filter="url(#cardShadow)">
+    <rect width="140" height="230" rx="16" fill="url(#cardGrad)" stroke="#38BDF8" stroke-width="1.5" />
+    <circle cx="70" cy="40" r="22" fill="#0F172A" stroke="#38BDF8" stroke-width="2" />
+    <text x="70" y="46" font-size="18" text-anchor="middle">🌐</text>
+    
+    <text x="70" y="85" font-size="13" font-weight="700" fill="#F8FAFC" text-anchor="middle">3. HTTPS Transport</text>
+    <text x="70" y="103" font-size="10" font-weight="500" fill="#38BDF8" text-anchor="middle">TLS Encrypted</text>
+
+    <line x1="20" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="70" y="142" font-size="10" fill="#94A3B8" text-anchor="middle">• fetch(endpoint)</text>
+    <text x="70" y="160" font-size="10" fill="#94A3B8" text-anchor="middle">• Header: JSON</text>
+    <text x="70" y="178" font-size="10" fill="#94A3B8" text-anchor="middle">• CORS Verified</text>
+    <text x="70" y="196" font-size="10" fill="#94A3B8" text-anchor="middle">• Asynchronous IO</text>
+
+    <rect x="25" y="210" width="90" height="6" rx="3" fill="#38BDF8" />
+  </g>
+
+  <!-- ARROW 3 -> 4 -->
+  <g transform="translate(545, 255)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#10B981" stroke-width="2" stroke-dasharray="4,4" />
+    <polygon points="25,0 20,-4 20,4" fill="#10B981" />
+    <text x="12" y="-8" font-size="9" fill="#34D399" text-anchor="middle" font-family="'JetBrains Mono', monospace">REST</text>
+  </g>
+
+  <!-- NODE 4: Serverless Free Tier Handler -->
+  <g transform="translate(575, 150)" filter="url(#cardShadow)">
+    <rect width="140" height="230" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5" />
+    <circle cx="70" cy="40" r="22" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+    <text x="70" y="46" font-size="18" text-anchor="middle">⚡</text>
+    
+    <text x="70" y="85" font-size="13" font-weight="700" fill="#F8FAFC" text-anchor="middle">4. Serverless Edge</text>
+    <text x="70" y="103" font-size="10" font-weight="500" fill="#34D399" text-anchor="middle">Formspree / Netlify</text>
+
+    <line x1="20" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="70" y="142" font-size="10" fill="#94A3B8" text-anchor="middle">• Spam Honeypot</text>
+    <text x="70" y="160" font-size="10" fill="#94A3B8" text-anchor="middle">• Rate Limiting</text>
+    <text x="70" y="178" font-size="10" fill="#94A3B8" text-anchor="middle">• Email Templating</text>
+    <text x="70" y="196" font-size="10" fill="#94A3B8" text-anchor="middle">• HTTP 200 Return</text>
+
+    <rect x="25" y="210" width="90" height="6" rx="3" fill="#10B981" fill-opacity="0.3" />
+  </g>
+
+  <!-- ARROW 4 -> 5 -->
+  <g transform="translate(720, 255)">
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#10B981" stroke-width="2" />
+    <polygon points="25,0 20,-4 20,4" fill="#10B981" />
+    <text x="12" y="-8" font-size="9" fill="#34D399" text-anchor="middle" font-family="'JetBrains Mono', monospace">SMTP</text>
+  </g>
+
+  <!-- NODE 5: Author Inbox Delivery -->
+  <g transform="translate(750, 150)" filter="url(#cardShadow)">
+    <rect width="140" height="230" rx="16" fill="url(#cardGrad)" stroke="#10B981" stroke-width="1.5" />
+    <circle cx="70" cy="40" r="22" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+    <text x="70" y="46" font-size="18" text-anchor="middle">📬</text>
+    
+    <text x="70" y="85" font-size="13" font-weight="700" fill="#F8FAFC" text-anchor="middle">5. Author Inbox</text>
+    <text x="70" y="103" font-size="10" font-weight="500" fill="#34D399" text-anchor="middle">mbqayyum@flyrank.ai</text>
+
+    <line x1="20" y1="120" x2="120" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="70" y="142" font-size="10" fill="#94A3B8" text-anchor="middle">• Real-time Alert</text>
+    <text x="70" y="160" font-size="10" fill="#94A3B8" text-anchor="middle">• Reply-To Headers</text>
+    <text x="70" y="178" font-size="10" fill="#94A3B8" text-anchor="middle">• 15-Min Invite</text>
+    <text x="70" y="196" font-size="10" fill="#94A3B8" text-anchor="middle">• Zero Missed Leads</text>
+
+    <rect x="25" y="210" width="90" height="6" rx="3" fill="#10B981" />
+  </g>
+
+  <!-- Bottom Summary Note -->
+  <g transform="translate(50, 420)">
+    <rect width="800" height="50" rx="10" fill="#1E293B" stroke="#334155" stroke-width="1" />
+    <text x="24" y="30" font-size="12" font-weight="600" fill="#F8FAFC">Backend Reality:</text>
+    <text x="135" y="30" font-size="12" font-weight="400" fill="#94A3B8">A static website displays information, but a serverless backend processes and routes it. Zero paid servers required.</text>
+  </g>
+</svg>

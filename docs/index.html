@@ -122,35 +122,106 @@
         <!-- Quick Links & Contact Bar -->
         <section id="contact" class="contact-bar-section">
             <div class="container">
-                <div class="contact-grid">
-                    <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" class="contact-card contact-card-featured" id="link-booking">
-                        <div class="icon-wrapper">📅</div>
-                        <div class="contact-info">
-                            <h3>15-Min Discovery Call</h3>
-                            <p>Book technical strategy session</p>
+                <div class="section-header">
+                    <div class="badge badge-accent">
+                        <span class="badge-dot"></span> Live Dynamic Feature (Week 8)
+                    </div>
+                    <h2 class="section-title">Technical Discovery & Inquiry</h2>
+                    <p class="section-subtitle">Send a direct message regarding search ML prioritization, data audits, or 15-minute discovery booking.</p>
+                </div>
+
+                <div class="contact-layout-grid">
+                    <!-- Left: Interactive Form -->
+                    <div class="contact-form-container glass-panel">
+                        <form id="discovery-inquiry-form" class="inquiry-form" method="POST" action="https://formspree.io/f/mqayyum_discovery" data-netlify="true" name="discovery-inquiry">
+                            <input type="hidden" name="form-name" value="discovery-inquiry" />
+                            <div class="form-row-dual">
+                                <div class="form-group">
+                                    <label for="form-name">Your Name <span class="required">*</span></label>
+                                    <input type="text" id="form-name" name="name" placeholder="e.g., Alex Mercer" required autocomplete="name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-email">Work Email <span class="required">*</span></label>
+                                    <input type="email" id="form-email" name="email" placeholder="alex@company.com" required autocomplete="email" />
+                                </div>
+                            </div>
+
+                            <div class="form-row-dual">
+                                <div class="form-group">
+                                    <label for="form-role">Your Role / Organization</label>
+                                    <select id="form-role" name="role">
+                                        <option value="Head of SEO">Head of SEO / VP Organic</option>
+                                        <option value="Product Lead">Product Lead / Growth Lead</option>
+                                        <option value="Engineering Manager">Engineering Manager / ML Lead</option>
+                                        <option value="Technical Recruiter">Technical Recruiter / Talent</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="form-inquiry-type">Inquiry Focus</label>
+                                    <select id="form-inquiry-type" name="inquiry_type">
+                                        <option value="15-Min Discovery Call">15-Min Discovery Strategy Call</option>
+                                        <option value="Model & Methodology Review">Model & Methodology Review</option>
+                                        <option value="Custom Dataset Audit">Custom Dataset Evaluation / Audit</option>
+                                        <option value="General Technical Question">General Technical Question</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-message">Message or Technical Context <span class="required">*</span></label>
+                                <textarea id="form-message" name="message" rows="4" placeholder="Briefly describe your search portfolio scale, content refresh bottlenecks, or questions..." required></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" id="form-submit-btn" class="btn btn-primary btn-submit">
+                                    <span class="btn-text">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                        Send Technical Inquiry
+                                    </span>
+                                    <span class="btn-spinner" aria-hidden="true"></span>
+                                </button>
+                                <span class="form-privacy-note">🔒 Free serverless dispatch · Zero spam · Direct inbox delivery</span>
+                            </div>
+
+                            <!-- In-DOM Status Feedback -->
+                            <div id="form-status-alert" class="form-status" role="alert" aria-live="polite" style="display: none;"></div>
+                        </form>
+                    </div>
+
+                    <!-- Right: Quick Links & Booking Info -->
+                    <div class="contact-sidebar">
+                        <div class="contact-grid-sidebar">
+                            <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" class="contact-card contact-card-featured" id="link-booking">
+                                <div class="icon-wrapper">📅</div>
+                                <div class="contact-info">
+                                    <h3>15-Min Discovery Call</h3>
+                                    <p>Instant calendar booking via Calendly</p>
+                                </div>
+                            </a>
+                            <a href="#posts" class="contact-card" id="link-research-card">
+                                <div class="icon-wrapper">📄</div>
+                                <div class="contact-info">
+                                    <h3>Capstone Research Paper</h3>
+                                    <p>Read methodology & metric receipts</p>
+                                </div>
+                            </a>
+                            <a href="https://linkedin.com/in/mbqayyum" target="_blank" class="contact-card">
+                                <div class="icon-wrapper">💼</div>
+                                <div class="contact-info">
+                                    <h3>LinkedIn Profile</h3>
+                                    <p>Professional background & network</p>
+                                </div>
+                            </a>
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" class="contact-card">
+                                <div class="icon-wrapper">🐙</div>
+                                <div class="contact-info">
+                                    <h3>GitHub Codebase</h3>
+                                    <p>Open source ML & agent repos</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    <a href="#posts" class="contact-card" id="link-research-card">
-                        <div class="icon-wrapper">📄</div>
-                        <div class="contact-info">
-                            <h3>Capstone Research Paper</h3>
-                            <p>Read methodology & metric receipts</p>
-                        </div>
-                    </a>
-                    <a href="https://linkedin.com/in/mbqayyum" target="_blank" class="contact-card">
-                        <div class="icon-wrapper">💼</div>
-                        <div class="contact-info">
-                            <h3>LinkedIn Profile</h3>
-                            <p>Professional background & network</p>
-                        </div>
-                    </a>
-                    <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" class="contact-card">
-                        <div class="icon-wrapper">🐙</div>
-                        <div class="contact-info">
-                            <h3>GitHub Codebase</h3>
-                            <p>Open source ML & agent repos</p>
-                        </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </section>
