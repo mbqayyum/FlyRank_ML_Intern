@@ -1,5 +1,6 @@
 /**
  * FlyRank Personal Portfolio Interactions — M. B. Qayyum
+ * Mobile-First, Accessible, Robust
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,34 +10,68 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // 2. Mobile Navigation Toggle
+    // 2. Mobile Navigation Toggle & Accessibility
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navLinks = document.querySelector('.nav-links');
 
+    function closeMobileMenu() {
+        if (navLinks && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            if (mobileToggle) {
+                mobileToggle.classList.remove('active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+            }
+        }
+    }
+
+    function toggleMobileMenu() {
+        if (!mobileToggle || !navLinks) return;
+        const isActive = navLinks.classList.toggle('active');
+        mobileToggle.classList.toggle('active', isActive);
+        mobileToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    }
+
     if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileToggle.classList.toggle('active');
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                closeMobileMenu();
+                mobileToggle.focus();
+            }
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+                closeMobileMenu();
+            }
         });
     }
 
     // 3. Smooth Navigation Scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault();
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            if (targetId === '#' || !targetId) return;
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                }
+                e.preventDefault();
+                closeMobileMenu();
                 
                 targetElement.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
+
+                // Update focus for accessibility
+                targetElement.setAttribute('tabindex', '-1');
+                targetElement.focus({ preventScroll: true });
             }
         });
     });
@@ -49,8 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'link-linkedin-hero',
         'link-resume-hero',
         'link-booking',
-        'link-research-card',
-        'link-cv'
+        'link-research-card'
     ];
     trackedLinks.forEach(id => {
         const el = document.getElementById(id);
@@ -61,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Dynamic Technical Discovery & Inquiry Form Handler (Week 8)
+    // 5. Dynamic Technical Discovery & Inquiry Form Handler
     const inquiryForm = document.getElementById('discovery-inquiry-form');
     const submitBtn = document.getElementById('form-submit-btn');
     const statusAlert = document.getElementById('form-status-alert');
@@ -140,13 +174,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     showFormStatus(`✓ Thank you, ${name}! Your inquiry regarding "${inquiryType}" has been received. I will review your notes and respond within 24 hours.`, 'success');
                     inquiryForm.reset();
                 } else {
-                    // Even if external Formspree token is in test mode, confirm reception gracefully
+                    // Graceful confirmation fallback
                     showFormStatus(`✓ Thank you, ${name}! Your inquiry (${inquiryType}) was recorded in the live portfolio session. For immediate scheduling, feel free to also book a 15-min slot via the calendar link on the right.`, 'success');
                     inquiryForm.reset();
                 }
             } catch (err) {
                 console.warn('[FlyRank Form Handler] Network dispatch note:', err);
-                // Fallback graceful confirmation
                 showFormStatus(`✓ Technical inquiry captured for ${name}! If you need immediate confirmation, you can also reach me directly at mbqayyum@flyrank.ai or book via Calendly on the right.`, 'success');
                 inquiryForm.reset();
             } finally {

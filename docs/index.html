@@ -9,22 +9,25 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- Accessible Skip to Content Link -->
+    <a href="#about" class="skip-to-content">Skip to main content</a>
+
     <!-- Navigation Header -->
     <header class="navbar">
         <div class="container nav-container">
-            <a href="#" class="brand-logo">
+            <a href="#about" class="brand-logo" aria-label="M. B. Qayyum Homepage">
                 <span class="logo-mark">⚡</span>
                 <span class="logo-text">M. B. Qayyum</span>
             </a>
             
-            <nav class="nav-links">
+            <nav id="main-nav" class="nav-links" aria-label="Main Navigation">
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
                 <a href="#dns-status">Subdomain Status</a>
@@ -32,7 +35,7 @@
                 <a href="#contact" class="btn btn-sm btn-outline">Connect</a>
             </nav>
 
-            <button class="mobile-toggle" aria-label="Toggle Menu">
+            <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="main-nav">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -57,28 +60,28 @@
                     
                     <div class="hero-actions">
                         <a href="#posts" class="btn btn-primary" id="link-capstone-hero">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                             Read Capstone Research Paper
                         </a>
-                        <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" rel="noopener" class="btn btn-secondary" id="link-booking-hero">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="link-booking-hero">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                             Book 15-Min Discovery Call
                         </a>
                     </div>
 
                     <div class="hero-sublinks">
-                        <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener" class="sublink-item" id="link-github-hero">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                        <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener noreferrer" class="sublink-item" id="link-github-hero">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
                             GitHub Repo
                         </a>
-                        <span class="sublink-sep">•</span>
-                        <a href="https://linkedin.com/in/mbqayyum" target="_blank" rel="noopener" class="sublink-item" id="link-linkedin-hero">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                        <span class="sublink-sep" aria-hidden="true">•</span>
+                        <a href="https://linkedin.com/in/mbqayyum" target="_blank" rel="noopener noreferrer" class="sublink-item" id="link-linkedin-hero">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                             LinkedIn Profile
                         </a>
-                        <span class="sublink-sep">•</span>
-                        <a href="https://raw.githubusercontent.com/mbqayyum/FlyRank_ML_Intern/main/work/ai_fluency_build_core/BUILD_CORE_MVP_DELIVERABLE.md" target="_blank" class="sublink-item" id="link-resume-hero">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <span class="sublink-sep" aria-hidden="true">•</span>
+                        <a href="https://raw.githubusercontent.com/mbqayyum/FlyRank_ML_Intern/main/work/ai_fluency_build_core/BUILD_CORE_MVP_DELIVERABLE.md" target="_blank" rel="noopener noreferrer" class="sublink-item" id="link-resume-hero">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             Technical CV
                         </a>
                     </div>
@@ -86,7 +89,7 @@
 
                 <div class="hero-card glass-panel">
                     <div class="card-header">
-                        <span class="status-indicator active"></span>
+                        <span class="status-indicator active" aria-hidden="true"></span>
                         <span class="card-title-text">Active System Context & Proof</span>
                     </div>
                     <div class="card-body">
@@ -176,7 +179,7 @@
                             <div class="form-actions">
                                 <button type="submit" id="form-submit-btn" class="btn btn-primary btn-submit">
                                     <span class="btn-text">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                                         Send Technical Inquiry
                                     </span>
                                     <span class="btn-spinner" aria-hidden="true"></span>
@@ -192,29 +195,29 @@
                     <!-- Right: Quick Links & Booking Info -->
                     <div class="contact-sidebar">
                         <div class="contact-grid-sidebar">
-                            <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" class="contact-card contact-card-featured" id="link-booking">
-                                <div class="icon-wrapper">📅</div>
+                            <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" rel="noopener noreferrer" class="contact-card contact-card-featured" id="link-booking">
+                                <div class="icon-wrapper" aria-hidden="true">📅</div>
                                 <div class="contact-info">
                                     <h3>15-Min Discovery Call</h3>
                                     <p>Instant calendar booking via Calendly</p>
                                 </div>
                             </a>
                             <a href="#posts" class="contact-card" id="link-research-card">
-                                <div class="icon-wrapper">📄</div>
+                                <div class="icon-wrapper" aria-hidden="true">📄</div>
                                 <div class="contact-info">
                                     <h3>Capstone Research Paper</h3>
                                     <p>Read methodology & metric receipts</p>
                                 </div>
                             </a>
-                            <a href="https://linkedin.com/in/mbqayyum" target="_blank" class="contact-card">
-                                <div class="icon-wrapper">💼</div>
+                            <a href="https://linkedin.com/in/mbqayyum" target="_blank" rel="noopener noreferrer" class="contact-card">
+                                <div class="icon-wrapper" aria-hidden="true">💼</div>
                                 <div class="contact-info">
                                     <h3>LinkedIn Profile</h3>
                                     <p>Professional background & network</p>
                                 </div>
                             </a>
-                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" class="contact-card">
-                                <div class="icon-wrapper">🐙</div>
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener noreferrer" class="contact-card">
+                                <div class="icon-wrapper" aria-hidden="true">🐙</div>
                                 <div class="contact-info">
                                     <h3>GitHub Codebase</h3>
                                     <p>Open source ML & agent repos</p>
@@ -242,6 +245,22 @@
                         <p class="project-desc">
                             An autonomous AI content triage agent operating a 5-step control loop: DuckDB performance queries, Scikit-Learn Random Forest decay scoring, reason code assignment, SERP layout context fetcher, and structured Markdown ticket brief generation with skeptic review notes.
                         </p>
+                        
+                        <!-- Crisp Vector Architecture Flow Preview -->
+                        <div class="project-diagram" aria-label="5-Step Refresh Scout Control Loop Architecture">
+                            <div class="pipeline-flow">
+                                <span class="pipeline-step"><span class="step-num">1</span> DuckDB Pull</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step"><span class="step-num">2</span> ML Decay Score</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step"><span class="step-num">3</span> Reason Code</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step"><span class="step-num">4</span> SERP Layout</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step step-highlight"><span class="step-num">5</span> Queue Ticket</span>
+                            </div>
+                        </div>
+
                         <div class="tech-stack">
                             <span class="tech-tag">Python 3</span>
                             <span class="tech-tag">DuckDB</span>
@@ -249,10 +268,10 @@
                             <span class="tech-tag">Control Loop</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/flyrank_refresh_scout_agent.py" target="_blank" class="link-item">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/flyrank_refresh_scout_agent.py" target="_blank" rel="noopener noreferrer" class="link-item">
                                 View Agent Code →
                             </a>
-                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/outputs/refresh_scout_queue.md" target="_blank" class="link-item">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/outputs/refresh_scout_queue.md" target="_blank" rel="noopener noreferrer" class="link-item">
                                 Sample Queue Briefs →
                             </a>
                         </div>
@@ -265,6 +284,20 @@
                         <p class="project-desc">
                             A chained 4-step research pipeline combining NotebookLM (fact extraction), Claude Project (executive drafting), Claude Skeptic Persona (adversarial leakage audit), and n8n orchestration. Reduces briefing time from 4 hours to 6 minutes.
                         </p>
+
+                        <!-- Crisp Vector Architecture Flow Preview -->
+                        <div class="project-diagram" aria-label="4-Step Research Pipeline Flow">
+                            <div class="pipeline-flow">
+                                <span class="pipeline-step"><span class="step-num">1</span> NotebookLM</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step"><span class="step-num">2</span> Claude Project</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step"><span class="step-num">3</span> Skeptic Audit</span>
+                                <span class="pipeline-arrow" aria-hidden="true">→</span>
+                                <span class="pipeline-step step-highlight"><span class="step-num">4</span> n8n Engine</span>
+                            </div>
+                        </div>
+
                         <div class="tech-stack">
                             <span class="tech-tag">n8n Blueprint</span>
                             <span class="tech-tag">NotebookLM</span>
@@ -272,7 +305,7 @@
                             <span class="tech-tag">Audit Protocol</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/no_code_workflow.md" target="_blank" class="link-item">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/no_code_workflow.md" target="_blank" rel="noopener noreferrer" class="link-item">
                                 Pipeline Documentation →
                             </a>
                         </div>
@@ -299,16 +332,16 @@
                             
                             <ul class="dns-checklist">
                                 <li class="checked">
-                                    <span class="check-icon">✓</span> Free HTTPS Hosting Live & Verified
+                                    <span class="check-icon" aria-label="Checked">✓</span> Free HTTPS Hosting Live & Verified
                                 </li>
                                 <li class="checked">
-                                    <span class="check-icon">✓</span> Non-Technical DNS Walkthrough Documented
+                                    <span class="check-icon" aria-label="Checked">✓</span> Non-Technical DNS Walkthrough Documented
                                 </li>
                                 <li class="pending">
-                                    <span class="check-icon">⏳</span> Ops CNAME Provisioning (Awaiting Capstone Approval)
+                                    <span class="check-icon" aria-label="Pending">⏳</span> Ops CNAME Provisioning (Awaiting Capstone Approval)
                                 </li>
                                 <li class="pending">
-                                    <span class="check-icon">⏳</span> Host Custom Domain Pointer & SSL Lock Confirmation
+                                    <span class="check-icon" aria-label="Pending">⏳</span> Host Custom Domain Pointer & SSL Lock Confirmation
                                 </li>
                             </ul>
                         </div>
@@ -361,8 +394,8 @@ Status: READY FOR PROVISIONING</code></pre>
         <div class="container footer-container">
             <p>&copy; <span id="year">2026</span> M. B. Qayyum. FlyRank AI Internship Submission.</p>
             <div class="footer-links">
-                <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank">Repository</a>
-                <a href="https://linkedin.com/in/mbqayyum" target="_blank">LinkedIn</a>
+                <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener noreferrer">Repository</a>
+                <a href="https://linkedin.com/in/mbqayyum" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="#about">Back to Top ↑</a>
             </div>
         </div>
