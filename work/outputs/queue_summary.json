@@ -1,0 +1,107 @@
+{
+  "total_rows": 30000,
+  "tier_counts": {
+    "monitor": 13083,
+    "refresh": 8188,
+    "refresh_and_review_ctr": 6654,
+    "refresh_and_review_engagement": 1993,
+    "expand_and_refresh": 82
+  },
+  "confidence_counts": {
+    "high": 3602,
+    "medium": 11398,
+    "low": 15000
+  },
+  "top_10_preview": [
+    {
+      "final_rank": 1,
+      "final_refresh_score": 81.7342122988875,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "high",
+      "impressions_90d": 12834,
+      "sessions_90d": 66,
+      "avg_position": 6.8
+    },
+    {
+      "final_rank": 2,
+      "final_refresh_score": 81.60324299672912,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "medium",
+      "impressions_90d": 2498,
+      "sessions_90d": 9,
+      "avg_position": 10.1
+    },
+    {
+      "final_rank": 3,
+      "final_refresh_score": 81.54461820201445,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "high",
+      "impressions_90d": 8064,
+      "sessions_90d": 23,
+      "avg_position": 3.8
+    },
+    {
+      "final_rank": 4,
+      "final_refresh_score": 81.16973096457238,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "high",
+      "impressions_90d": 13790,
+      "sessions_90d": 27,
+      "avg_position": 8.2
+    },
+    {
+      "final_rank": 5,
+      "final_refresh_score": 80.95756499088004,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "medium",
+      "impressions_90d": 3393,
+      "sessions_90d": 5,
+      "avg_position": 3.6
+    },
+    {
+      "final_rank": 6,
+      "final_refresh_score": 80.79809042410413,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "high",
+      "impressions_90d": 5811,
+      "sessions_90d": 14,
+      "avg_position": 6.4
+    },
+    {
+      "final_rank": 7,
+      "final_refresh_score": 80.65065561777621,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "high",
+      "impressions_90d": 1622,
+      "sessions_90d": 20,
+      "avg_position": 3.1
+    },
+    {
+      "final_rank": 8,
+      "final_refresh_score": 80.43264056382652,
+      "suggested_action": "refresh",
+      "confidence": "medium",
+      "impressions_90d": 4366,
+      "sessions_90d": 8,
+      "avg_position": 20.1
+    },
+    {
+      "final_rank": 9,
+      "final_refresh_score": 80.42840349910583,
+      "suggested_action": "refresh_and_review_ctr",
+      "confidence": "medium",
+      "impressions_90d": 1597,
+      "sessions_90d": 5,
+      "avg_position": 2.7
+    },
+    {
+      "final_rank": 10,
+      "final_refresh_score": 80.42824293242755,
+      "suggested_action": "refresh",
+      "confidence": "medium",
+      "impressions_90d": 3867,
+      "sessions_90d": 5,
+      "avg_position": 27.5
+    }
+  ]
+}

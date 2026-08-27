@@ -1,0 +1,95 @@
+{
+  "portfolio_summary": {
+    "total_pages_scored": 30000,
+    "total_clients": 32,
+    "base_decline_rate": 0.5420666666666667,
+    "high_confidence_pages": 3602,
+    "medium_confidence_pages": 11398,
+    "low_confidence_pages": 15000
+  },
+  "action_tier_distribution": {
+    "monitor": 13083,
+    "refresh": 8188,
+    "refresh_and_review_ctr": 6654,
+    "refresh_and_review_engagement": 1993,
+    "expand_and_refresh": 82
+  },
+  "action_tier_percentages": {
+    "monitor": 43.61,
+    "refresh": 27.29,
+    "refresh_and_review_ctr": 22.18,
+    "refresh_and_review_engagement": 6.64,
+    "expand_and_refresh": 0.27
+  },
+  "confidence_cross_tab": {
+    "expand_and_refresh": {
+      "high": 8,
+      "low": 45,
+      "medium": 29
+    },
+    "monitor": {
+      "high": 0,
+      "low": 11895,
+      "medium": 1188
+    },
+    "refresh": {
+      "high": 776,
+      "low": 1880,
+      "medium": 5532
+    },
+    "refresh_and_review_ctr": {
+      "high": 1845,
+      "low": 884,
+      "medium": 3925
+    },
+    "refresh_and_review_engagement": {
+      "high": 973,
+      "low": 296,
+      "medium": 724
+    }
+  },
+  "top_reason_codes": {
+    "declining_with_demand": 13152,
+    "visible_model_opportunity": 10650,
+    "low_ctr_visible_page": 9759,
+    "ctr_review_candidate": 9759,
+    "general_refresh_review": 9117,
+    "model_decline_risk": 8427,
+    "page_one_decay_risk": 7076,
+    "low_engagement_visible_page": 6508,
+    "engagement_review_candidate": 6508,
+    "thin_visible_page": 82
+  },
+  "decay_curve_by_freshness_tier": {
+    "0-30": {
+      "page_count": 20480,
+      "decline_rate": 0.5114,
+      "mean_impressions": 4199.6,
+      "mean_score": 45.5
+    },
+    "31-90": {
+      "page_count": 175,
+      "decline_rate": 0.5886,
+      "mean_impressions": 6506.7,
+      "mean_score": 60.7
+    },
+    "91-180": {
+      "page_count": 9171,
+      "decline_rate": 0.6111,
+      "mean_impressions": 7486.7,
+      "mean_score": 59.3
+    },
+    "181+": {
+      "page_count": 174,
+      "decline_rate": 0.4713,
+      "mean_impressions": 1172.4,
+      "mean_score": 43.1
+    }
+  },
+  "operational_telemetry": {
+    "validation_precision_at_50": 0.74,
+    "validation_precision_at_20": 0.65,
+    "retrain_cadence_days": 90,
+    "max_acceptable_psi": 0.2
+  }
+}
