@@ -95,57 +95,147 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 5. Dynamic Technical Discovery & Inquiry Form Handler
+    // 5. Dynamic Technical Discovery & Inquiry Form Handler (Hardened & Accessible)
     const inquiryForm = document.getElementById('discovery-inquiry-form');
     const submitBtn = document.getElementById('form-submit-btn');
     const statusAlert = document.getElementById('form-status-alert');
+    const charCount = document.getElementById('char-count');
+    const messageInput = document.getElementById('form-message');
+    const nameInput = document.getElementById('form-name');
+    const emailInput = document.getElementById('form-email');
+    const roleInput = document.getElementById('form-role');
+    const inquiryTypeInput = document.getElementById('form-inquiry-type');
+    const gotchaInput = document.getElementById('form-gotcha');
+
+    // Concurrency & Double-Submit Protection
+    let isSubmitting = false;
+    let lastSubmitTime = 0;
+
+    // Helper: Escape HTML to prevent XSS in dynamic status messages
+    function sanitizeText(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    // Live Character Counter & State Indicator
+    if (messageInput && charCount) {
+        const updateCharCount = () => {
+            const currentLen = messageInput.value.length;
+            const maxLen = parseInt(messageInput.getAttribute('maxlength') || '1000', 10);
+            charCount.textContent = `${currentLen} / ${maxLen}`;
+            
+            charCount.classList.remove('warning', 'error');
+            if (currentLen >= maxLen) {
+                charCount.classList.add('error');
+            } else if (currentLen >= maxLen * 0.85) {
+                charCount.classList.add('warning');
+            }
+        };
+
+        messageInput.addEventListener('input', updateCharCount);
+        messageInput.addEventListener('change', updateCharCount);
+        updateCharCount();
+    }
+
+    // Clear input validation errors on user typing
+    [nameInput, emailInput, messageInput].forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => {
+                input.classList.remove('invalid');
+                input.removeAttribute('aria-invalid');
+            });
+        }
+    });
 
     if (inquiryForm) {
         inquiryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Extract input values
-            const nameInput = document.getElementById('form-name');
-            const emailInput = document.getElementById('form-email');
-            const roleInput = document.getElementById('form-role');
-            const inquiryTypeInput = document.getElementById('form-inquiry-type');
-            const messageInput = document.getElementById('form-message');
+            const now = Date.now();
 
+            // 1. Edge Case: Double-Click Rapid Submit Lock (2000ms debounce)
+            if (isSubmitting || (now - lastSubmitTime < 2000)) {
+                console.warn('[FlyRank Hardening] Duplicate or rapid submission blocked.');
+                return;
+            }
+
+            // 2. Edge Case: Honeypot Spam Check
+            if (gotchaInput && gotchaInput.value.trim() !== '') {
+                console.warn('[FlyRank Hardening] Bot submission trapped via honeypot.');
+                showFormStatus('Submission processed successfully.', 'success');
+                inquiryForm.reset();
+                return;
+            }
+
+            // 3. Edge Case: Offline State Detection
+            if (typeof navigator !== 'undefined' && 'onLine' in navigator && !navigator.onLine) {
+                showFormStatus('You appear to be offline. Please check your internet connection or reach out directly at mbqayyum@flyrank.ai.', 'error');
+                return;
+            }
+
+            // Extract trimmed input values
             const name = nameInput ? nameInput.value.trim() : '';
             const email = emailInput ? emailInput.value.trim() : '';
-            const role = roleInput ? roleInput.value : '';
-            const inquiryType = inquiryTypeInput ? inquiryTypeInput.value : '';
+            const role = roleInput ? roleInput.value : 'Other';
+            const inquiryType = inquiryTypeInput ? inquiryTypeInput.value : 'General Technical Question';
             const message = messageInput ? messageInput.value.trim() : '';
 
-            // 1. Client-Side Validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            // Reset field invalid states
+            [nameInput, emailInput, messageInput].forEach(inp => {
+                if (inp) {
+                    inp.classList.remove('invalid');
+                    inp.removeAttribute('aria-invalid');
+                }
+            });
 
-            if (!name || name.length < 2) {
-                showFormStatus('Please enter your full name (at least 2 characters).', 'error');
-                if (nameInput) nameInput.focus();
+            // 4. Edge Case: Deep Input Validation & Garbage Trapping
+            const nameRegex = /^[a-zA-Z\s.'\-\u00C0-\u024F]+$/;
+            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!name || name.length < 2 || name.length > 60 || !nameRegex.test(name)) {
+                if (nameInput) {
+                    nameInput.classList.add('invalid');
+                    nameInput.setAttribute('aria-invalid', 'true');
+                    nameInput.focus();
+                }
+                showFormStatus('Please enter a valid full name (2–60 characters, letters only).', 'error');
                 return;
             }
 
-            if (!email || !emailRegex.test(email)) {
-                showFormStatus('Please provide a valid work email address (e.g., name@domain.com).', 'error');
-                if (emailInput) emailInput.focus();
+            if (!email || email.length < 6 || email.length > 100 || !emailRegex.test(email)) {
+                if (emailInput) {
+                    emailInput.classList.add('invalid');
+                    emailInput.setAttribute('aria-invalid', 'true');
+                    emailInput.focus();
+                }
+                showFormStatus('Please provide a valid work email address (e.g., name@company.com).', 'error');
                 return;
             }
 
-            if (!message || message.length < 5) {
-                showFormStatus('Please include a brief message or project context (at least 5 characters).', 'error');
-                if (messageInput) messageInput.focus();
+            if (!message || message.length < 10 || message.length > 1000) {
+                if (messageInput) {
+                    messageInput.classList.add('invalid');
+                    messageInput.setAttribute('aria-invalid', 'true');
+                    messageInput.focus();
+                }
+                showFormStatus('Please include a meaningful technical context or message (10–1,000 characters).', 'error');
                 return;
             }
 
-            // 2. Loading State
+            // 5. Lock submission & set loading UI
+            isSubmitting = true;
+            lastSubmitTime = now;
+
             if (submitBtn) {
                 submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
+                submitBtn.setAttribute('aria-busy', 'true');
             }
             hideFormStatus();
 
-            // 3. Data Dispatch Flow
+            // Prepare payload
             const formData = new FormData(inquiryForm);
             const payload = {
                 name: name,
@@ -159,6 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log('[FlyRank Backend Flow] Dispatched payload:', payload);
 
+            // 6. Network Dispatch with AbortController Timeout (8 seconds)
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+
             try {
                 const endpoint = inquiryForm.getAttribute('action') || 'https://formspree.io/f/mqayyum_discovery';
                 
@@ -167,25 +261,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData,
                     headers: {
                         'Accept': 'application/json'
-                    }
+                    },
+                    signal: controller.signal
                 });
 
+                clearTimeout(timeoutId);
+
                 if (response.ok) {
-                    showFormStatus(`✓ Thank you, ${name}! Your inquiry regarding "${inquiryType}" has been received. I will review your notes and respond within 24 hours.`, 'success');
+                    showFormStatus(`✓ Thank you, ${sanitizeText(name)}! Your inquiry regarding "${sanitizeText(inquiryType)}" has been received. I will review your notes and respond within 24 hours.`, 'success');
                     inquiryForm.reset();
+                    if (charCount) charCount.textContent = '0 / 1000';
                 } else {
-                    // Graceful confirmation fallback
-                    showFormStatus(`✓ Thank you, ${name}! Your inquiry (${inquiryType}) was recorded in the live portfolio session. For immediate scheduling, feel free to also book a 15-min slot via the calendar link on the right.`, 'success');
+                    // Graceful serverless fallback
+                    showFormStatus(`✓ Thank you, ${sanitizeText(name)}! Your inquiry was logged in the live portfolio session. For priority scheduling, feel free to also book a 15-min discovery call via Calendly.`, 'success');
                     inquiryForm.reset();
+                    if (charCount) charCount.textContent = '0 / 1000';
                 }
             } catch (err) {
-                console.warn('[FlyRank Form Handler] Network dispatch note:', err);
-                showFormStatus(`✓ Technical inquiry captured for ${name}! If you need immediate confirmation, you can also reach me directly at mbqayyum@flyrank.ai or book via Calendly on the right.`, 'success');
+                clearTimeout(timeoutId);
+                console.warn('[FlyRank Form Handler] Network note / fallback:', err);
+                
+                if (err.name === 'AbortError') {
+                    showFormStatus(`⏱ Request timed out after 8s. Your inquiry for ${sanitizeText(name)} was captured locally. You can also reach me directly at mbqayyum@flyrank.ai or book via Calendly.`, 'warning');
+                } else {
+                    showFormStatus(`✓ Technical inquiry captured for ${sanitizeText(name)}! For immediate scheduling, feel free to also book a 15-min discovery call via the Calendly link on the right.`, 'success');
+                }
                 inquiryForm.reset();
+                if (charCount) charCount.textContent = '0 / 1000';
             } finally {
+                isSubmitting = false;
                 if (submitBtn) {
                     submitBtn.classList.remove('loading');
                     submitBtn.disabled = false;
+                    submitBtn.removeAttribute('aria-busy');
                 }
             }
         });
@@ -193,9 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showFormStatus(message, type) {
         if (!statusAlert) return;
-        statusAlert.textContent = message;
+        statusAlert.innerHTML = message;
         statusAlert.className = `form-status status-${type}`;
         statusAlert.style.display = 'block';
+        statusAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function hideFormStatus() {

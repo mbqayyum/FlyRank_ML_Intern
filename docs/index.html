@@ -3,8 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="M. B. Qayyum — FlyRank AI & ML Engineering Intern Portfolio. Search ML, Content Triage Agents, and Autonomous Workflows.">
+    <meta name="description" content="M. B. Qayyum — FlyRank AI & ML Engineering Intern Portfolio. Search ML ranking models, autonomous triage agents, and data audit receipts.">
+    <meta name="author" content="M. B. Qayyum">
+    <meta name="keywords" content="M. B. Qayyum, FlyRank, Search ML, Content Refresh, Machine Learning, SEO Automation, Data Science, Random Forest, DuckDB">
+    <meta name="robots" content="index, follow">
     <title>M. B. Qayyum | FlyRank AI & ML Engineering Intern</title>
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://mbqayyum.github.io/FlyRank_ML_Intern/">
+
+    <!-- Open Graph / Social Sharing (Facebook, LinkedIn, Discord, Slack) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mbqayyum.github.io/FlyRank_ML_Intern/">
+    <meta property="og:title" content="M. B. Qayyum | FlyRank AI & ML Engineering Intern">
+    <meta property="og:description" content="Search ML models & autonomous content triage agents built on 30k-row panel datasets with a 3.1× Precision@50 lift over rule baselines.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/mbqayyum/FlyRank_ML_Intern/main/work/figures/fig1_action_tier_distribution.png">
+    <meta property="og:site_name" content="M. B. Qayyum Portfolio">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://mbqayyum.github.io/FlyRank_ML_Intern/">
+    <meta name="twitter:title" content="M. B. Qayyum | FlyRank AI & ML Engineering Intern">
+    <meta name="twitter:description" content="Search ML models & autonomous content triage agents built on 30k-row panel datasets.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/mbqayyum/FlyRank_ML_Intern/main/work/figures/fig1_action_tier_distribution.png">
+
+    <!-- Structured Data (JSON-LD) for Search Findability -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "M. B. Qayyum",
+      "jobTitle": "AI & ML Engineering Intern",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "FlyRank",
+        "url": "https://flyrank.ai"
+      },
+      "url": "https://mbqayyum.github.io/FlyRank_ML_Intern/",
+      "sameAs": [
+        "https://github.com/mbqayyum/FlyRank_ML_Intern",
+        "https://linkedin.com/in/mbqayyum"
+      ],
+      "knowsAbout": [
+        "Search Machine Learning",
+        "Content Refresh Prioritization",
+        "Autonomous Triage Agents",
+        "Feature Leakage Auditing",
+        "DuckDB Data Pipelines"
+      ]
+    }
+    </script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -136,16 +185,20 @@
                 <div class="contact-layout-grid">
                     <!-- Left: Interactive Form -->
                     <div class="contact-form-container glass-panel">
-                        <form id="discovery-inquiry-form" class="inquiry-form" method="POST" action="https://formspree.io/f/mqayyum_discovery" data-netlify="true" name="discovery-inquiry">
+                        <form id="discovery-inquiry-form" class="inquiry-form" method="POST" action="https://formspree.io/f/mqayyum_discovery" data-netlify="true" name="discovery-inquiry" novalidate>
                             <input type="hidden" name="form-name" value="discovery-inquiry" />
+                            
+                            <!-- Honeypot Spam Guard (Hidden from real users, traps bots) -->
+                            <input type="text" name="_gotcha" id="form-gotcha" class="visually-hidden-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
                             <div class="form-row-dual">
                                 <div class="form-group">
                                     <label for="form-name">Your Name <span class="required">*</span></label>
-                                    <input type="text" id="form-name" name="name" placeholder="e.g., Alex Mercer" required autocomplete="name" />
+                                    <input type="text" id="form-name" name="name" placeholder="e.g., Alex Mercer" required maxlength="60" autocomplete="name" aria-describedby="form-status-alert" />
                                 </div>
                                 <div class="form-group">
                                     <label for="form-email">Work Email <span class="required">*</span></label>
-                                    <input type="email" id="form-email" name="email" placeholder="alex@company.com" required autocomplete="email" />
+                                    <input type="email" id="form-email" name="email" placeholder="alex@company.com" required maxlength="100" autocomplete="email" aria-describedby="form-status-alert" />
                                 </div>
                             </div>
 
@@ -172,8 +225,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="form-message">Message or Technical Context <span class="required">*</span></label>
-                                <textarea id="form-message" name="message" rows="4" placeholder="Briefly describe your search portfolio scale, content refresh bottlenecks, or questions..." required></textarea>
+                                <div class="label-row">
+                                    <label for="form-message">Message or Technical Context <span class="required">*</span></label>
+                                    <span id="char-count" class="char-count" aria-live="polite">0 / 1000</span>
+                                </div>
+                                <textarea id="form-message" name="message" rows="4" maxlength="1000" placeholder="Briefly describe your search portfolio scale, content refresh bottlenecks, or questions..." required aria-describedby="char-count form-status-alert"></textarea>
                             </div>
 
                             <div class="form-actions">
@@ -184,7 +240,7 @@
                                     </span>
                                     <span class="btn-spinner" aria-hidden="true"></span>
                                 </button>
-                                <span class="form-privacy-note">🔒 Free serverless dispatch · Zero spam · Direct inbox delivery</span>
+                                <span class="form-privacy-note">🔒 Free serverless dispatch · Double-click protected · Direct inbox delivery</span>
                             </div>
 
                             <!-- In-DOM Status Feedback -->
