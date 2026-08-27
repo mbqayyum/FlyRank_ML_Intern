@@ -983,17 +983,44 @@ section[id],
 
 /* Footer */
 .footer {
-    padding: 40px 0;
+    padding: 50px 0 40px;
     border-top: 1px solid var(--border-glass);
     background: var(--bg-dark);
 }
 
 .footer-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    gap: 28px;
     font-size: 0.9rem;
     color: var(--text-muted);
+}
+
+.footer-badge-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.flyrank-graduate-badge {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.flyrank-graduate-badge:hover {
+    transform: translateY(-3px);
+    border-color: rgba(84, 227, 153, 0.7) !important;
+    box-shadow: 0 8px 24px rgba(84, 227, 153, 0.2) !important;
+}
+
+.footer-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 24px;
+    font-size: 0.875rem;
 }
 
 .footer-links {

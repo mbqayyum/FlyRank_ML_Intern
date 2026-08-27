@@ -4,6 +4,39 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Privacy-Friendly Visitor Telemetry & Analytics Engine (Zero Cookies, No PII)
+    const initPrivacyAnalytics = () => {
+        const dnt = navigator.doNotTrack === '1' || window.doNotTrack === '1';
+        if (dnt) {
+            console.log('[FlyRank Analytics] DNT enabled by user; visitor telemetry disabled.');
+            return;
+        }
+
+        const sessionKey = 'flyrank_session_' + new Date().toISOString().slice(0, 10);
+        let sessionVisits = parseInt(sessionStorage.getItem(sessionKey) || '0', 10) + 1;
+        sessionStorage.setItem(sessionKey, sessionVisits.toString());
+
+        const analyticsPayload = {
+            event: 'pageview',
+            path: window.location.pathname,
+            referrer: document.referrer || 'direct',
+            screen: `${window.innerWidth}x${window.innerHeight}`,
+            session_views: sessionVisits,
+            timestamp: new Date().toISOString()
+        };
+
+        console.log('📊 [FlyRank Privacy Analytics] Active session recorded:', analyticsPayload);
+
+        try {
+            const rawHist = localStorage.getItem('flyrank_analytics_history') || '[]';
+            const hist = JSON.parse(rawHist);
+            hist.push({ t: Date.now(), p: window.location.pathname, r: document.referrer || 'direct' });
+            if (hist.length > 50) hist.shift();
+            localStorage.setItem('flyrank_analytics_history', JSON.stringify(hist));
+        } catch (e) {}
+    };
+    initPrivacyAnalytics();
+
     // 1. Dynamic Footer Year Update
     const yearSpan = document.getElementById('year');
     if (yearSpan) {
