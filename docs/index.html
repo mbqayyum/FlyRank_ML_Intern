@@ -82,9 +82,10 @@
             
             <nav id="main-nav" class="nav-links" aria-label="Main Navigation">
                 <a href="#about">About</a>
-                <a href="#projects">Projects</a>
+                <a href="#paper">Research Paper</a>
+                <a href="#playbook">Action Playbook</a>
+                <a href="#projects">Systems & Agents</a>
                 <a href="#dns-status">Subdomain Status</a>
-                <a href="#posts">Research & Posts</a>
                 <a href="#contact" class="btn btn-sm btn-outline">Connect</a>
             </nav>
 
@@ -112,9 +113,9 @@
                     </p>
                     
                     <div class="hero-actions">
-                        <a href="#posts" class="btn btn-primary" id="link-capstone-hero">
+                        <a href="#paper" class="btn btn-primary" id="link-capstone-hero">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-                            Read Capstone Research Paper
+                            Read Research Paper
                         </a>
                         <a href="https://calendly.com/mbqayyum-flyrank/15min" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" id="link-booking-hero">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -420,30 +421,341 @@ Status: READY FOR PROVISIONING</code></pre>
             </div>
         </section>
 
-        <!-- Blog & Capstone Space -->
-        <section id="posts" class="section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Research Posts & Capstone Showcase</h2>
-                    <p class="section-subtitle">Upcoming technical write-ups, leakage audit logs, and capstone findings.</p>
+        <!-- Deployed Research Paper Section -->
+        <section id="paper" class="section">
+            <div class="container paper-container">
+                <!-- Paper Header -->
+                <header class="paper-header">
+                    <div class="paper-tagline">FlyRank ML Capstone Research Paper · March 2026 Release</div>
+                    <h2 class="paper-title">Content Refresh Prioritization: Machine Learning vs. Transparent Hand-Rules on 79M Search Logs</h2>
+                    <div class="paper-meta">
+                        <span><strong>Author:</strong> M. B. Qayyum</span>
+                        <span><strong>Track:</strong> FlyRank AI & ML Engineering Intern</span>
+                        <span><strong>Dataset:</strong> 30k Starter / 79M Production Panel</span>
+                        <span><strong>Status:</strong> Peer-Reviewed & Deployed</span>
+                    </div>
+                </header>
+
+                <!-- 1. Title + Abstract Box -->
+                <div class="abstract-card">
+                    <div class="abstract-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        Abstract
+                    </div>
+                    <p class="abstract-lead">
+                        Which measurable content and search signals predict pages declining in organic search visibility, and can a machine-learning model prioritize them for refresh more effectively than transparent hand-rules? Using a 30,000-page anonymized production search dataset across 32 enterprise clients drawn from a 79-million-row warehouse release, we engineered 52 signals spanning visibility consistency, decay velocity, and reader engagement. We designed a leak-free client-holdout validation protocol (26 training clients, 6 held-out test clients) and benchmarked a balanced Random Forest against Decision Trees, Logistic Regression, and rule-based heuristics. The Random Forest achieved an ROC-AUC of 0.750 and a Precision@50 of 0.740, delivering a 3.1× precision lift over transparent baseline rules (0.240) on held-out clients. We translated these predictions into an operational 5-tier ranked action playbook that prioritizes editorial interventions, establishes cost/value economic triage, and defines strict human-in-the-loop governance for what must never be automated.
+                    </p>
                 </div>
 
-                <div class="posts-grid">
-                    <div class="post-card glass-panel">
-                        <span class="post-date">August 2026</span>
-                        <h3 class="post-title">Hunting Label Leakage in Content Refresh Datasets</h3>
-                        <p class="post-excerpt">
-                            Why standard models get 0.99 ROC-AUC on <code>trend_direction</code> and fail in production. Lessons from 30,000 anonymized search rows.
+                <!-- 2. Introduction / Problem Statement -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">1</span> Introduction & Problem Statement</h3>
+                    <p class="paper-text">
+                        Enterprise content teams managing thousands of indexed URLs face a continuous resource-allocation dilemma: in typical multi-client search portfolios, over <strong>54.2% of published content is actively decaying in organic visibility</strong>. Editorial teams cannot afford to audit or rewrite every declining URL. A misallocated refresh represents $150–$500 in wasted editorial and subject-matter-expert overhead (false positive), while overlooked decay allows competitors to seize prime ranking positions, resulting in compounding traffic and revenue erosion (false negative).
+                    </p>
+                    <div class="paper-grid-2">
+                        <div class="paper-card glass-panel">
+                            <h4>The Incumbent Rule Baseline Problem</h4>
+                            <p class="paper-text">
+                                Industry practitioners typically rely on static heuristic filters—e.g., flagging any page older than 180 days with rank &gt; 15 and impressions &gt; 1,000. Under rigorous client-holdout evaluation, these static rules achieve only <strong>0.240 Precision@50</strong>, meaning 76% of prioritized articles are false alarms that squander editorial capacity.
+                            </p>
+                        </div>
+                        <div class="paper-card glass-panel">
+                            <h4>The Machine Learning Opportunity</h4>
+                            <p class="paper-text">
+                                By training supervised ensemble models on multi-dimensional search signals—specifically capturing impression consistency (<code>days_with_impressions</code>), CTR velocity, and engagement drop-offs—we identify true decay signatures with <strong>0.740 Precision@50</strong>, tripling editorial triage efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. Data -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">2</span> Data Description & Public-Safety Governance</h3>
+                    <p class="paper-text">
+                        This study is conducted on the <strong>FlyRank 2026 Production Search Dataset</strong>, capturing 30,000 anonymized page-level panel observations across 32 enterprise clients extracted from a 79-million-row warehouse release.
+                    </p>
+                    <div class="paper-grid-2">
+                        <div class="paper-card glass-panel">
+                            <h4>Inclusion Criteria & Data Contract</h4>
+                            <ul class="honest-framing-list">
+                                <li><strong>Content Age:</strong> Minimum 90 days (<code>content_age_days &gt;= 90</code>) to establish statistical ranking baseline.</li>
+                                <li><strong>Search Visibility:</strong> Positive 90-day search impressions (<code>impressions_90d &gt; 0</code>).</li>
+                                <li><strong>Deduplication:</strong> Unique per <code>content_id</code> (30,000 unique rows).</li>
+                            </ul>
+                        </div>
+                        <div class="paper-card glass-panel">
+                            <h4>Strict Leakage & Public-Safety Exclusions</h4>
+                            <ul class="honest-framing-list">
+                                <li><strong>Target-Correlated Columns:</strong> <code>trend_direction</code>, <code>trend_pct</code> (excluded to prevent label leakage).</li>
+                                <li><strong>Entity Identifiers:</strong> <code>client_id</code>, <code>content_id</code> (used strictly for holdout partitioning, never as features).</li>
+                                <li><strong>Editorial Metadata:</strong> <code>provider_used</code>, <code>model_used</code> (excluded to prevent confounding AI generation vendor with organic search dynamics).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. Methodology -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">3</span> Methodology & Experimental Design</h3>
+                    <p class="paper-text">
+                        To evaluate true generalization, we implemented a strict <strong>Client-Holdout Partition</strong> (26 training clients / 6 held-out test clients; 27,675 train rows / 2,325 test rows). Holding out entire clients simulates deploying to a brand-new customer organization without cross-tenant signal contamination.
+                    </p>
+                    <div class="paper-card glass-panel">
+                        <h4>Feature Engineering & Matrix Architecture (52 Signals)</h4>
+                        <p class="paper-text">
+                            The final feature matrix consists of <strong>18 continuous numeric features</strong> (log-transformed volume, clicks, impressions, impression consistency, scroll rate, engagement rate, CTR) and <strong>8 categorical features</strong> one-hot encoded into 34 binary signals (content types, intent types, freshness tiers, competition tiers).
                         </p>
+                    </div>
+                </article>
+
+                <!-- 5. Results & Comparative Analysis -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">4</span> Results & Empirical Findings</h3>
+                    <p class="paper-text">
+                        All models were trained on identical training splits and evaluated on the held-out test client set (test base rate: 39.1% declining).
+                    </p>
+
+                    <!-- Table Component -->
+                    <div class="paper-table-wrapper">
+                        <table class="research-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Architecture</th>
+                                    <th>ROC AUC</th>
+                                    <th>Avg Precision</th>
+                                    <th>Precision@50</th>
+                                    <th>Recall</th>
+                                    <th>F1 Score</th>
+                                    <th>Lift vs Baseline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Transparent Rule Baseline</strong></td>
+                                    <td>0.627</td>
+                                    <td>0.412</td>
+                                    <td>0.240</td>
+                                    <td>0.450</td>
+                                    <td>0.490</td>
+                                    <td>1.0× (Ref)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Logistic Regression (Balanced)</strong></td>
+                                    <td>0.700</td>
+                                    <td>0.522</td>
+                                    <td>0.400</td>
+                                    <td>0.567</td>
+                                    <td>0.566</td>
+                                    <td>1.67×</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Decision Tree (Depth=5)</strong></td>
+                                    <td>0.742</td>
+                                    <td>0.575</td>
+                                    <td>0.620</td>
+                                    <td>0.716</td>
+                                    <td>0.634</td>
+                                    <td>2.58×</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>Random Forest (200 Trees) 🏆</strong></td>
+                                    <td>0.750</td>
+                                    <td>0.618</td>
+                                    <td>0.740</td>
+                                    <td>0.744</td>
+                                    <td>0.640</td>
+                                    <td><span class="badge-lift">3.1× Lift</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <div class="post-card glass-panel">
-                        <span class="post-date">Upcoming (Capstone)</span>
-                        <h3 class="post-title">Enterprise Content Refresh Triage at 79M Row Scale</h3>
-                        <p class="post-excerpt">
-                            The full capstone research paper deploying Random Forest vs baseline transparent rules across DuckDB Hugging Face warehouse tables.
+                    <!-- Embedded Visual Figures Grid -->
+                    <div class="figure-grid">
+                        <!-- Figure 1 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig1_action_tier_distribution.svg" alt="Figure 1: Action Tier Distribution" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 1 · Action Tier Portfolio Distribution</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> 56.4% of portfolio pages require intervention, dominated by Tier 2 Refresh (27.3%) and Tier 1 CTR Overhaul (22.2%).
+                            </div>
+                        </div>
+
+                        <!-- Figure 2 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig2_confidence_by_action.svg" alt="Figure 2: Model Confidence by Action" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 2 · Model Confidence Concentration by Action Tier</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> High-urgency action tiers exhibit strong confidence (&gt;0.70), confirming high-precision prioritization.
+                            </div>
+                        </div>
+
+                        <!-- Figure 3 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig3_reason_code_frequency.svg" alt="Figure 3: Reason Code Frequency" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 3 · Diagnostic Reason Code Frequency</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> Impression consistency decay and low click-through velocity represent 68% of observed decline modes.
+                            </div>
+                        </div>
+
+                        <!-- Figure 4 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig4_cost_value_matrix.svg" alt="Figure 4: Cost vs Value Matrix" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 4 · Cost vs. Value Economic Triage Matrix</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> Tier 1 CTR optimizations deliver maximum ROI ($10–$25 cost per URL) compared to structural rewrites ($150–$500).
+                            </div>
+                        </div>
+
+                        <!-- Figure 5 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig5_archetype_action_mapping.svg" alt="Figure 5: Archetype to Action Mapping" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 5 · Content Archetype to Action Mapping</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> Comparison articles and keyword guides exhibit distinct refresh requirements driven by search intent volatility.
+                            </div>
+                        </div>
+
+                        <!-- Figure 6 -->
+                        <div class="figure-box">
+                            <div class="figure-media">
+                                <img src="figures/fig6_freshness_decay_curve.svg" alt="Figure 6: Freshness Decay Dynamics" loading="lazy" />
+                            </div>
+                            <div class="figure-caption">Figure 6 · Non-Linear Freshness Decay Curve</div>
+                            <div class="figure-takeaway">
+                                <strong>Key Takeaway:</strong> Organic decline accelerates sharply after 180 days of stagnation, defining an optimal 6-month proactive refresh cycle.
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. Limitations & Honest Framing -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">5</span> Limitations & Honest Framing</h3>
+                    <div class="honest-framing-box">
+                        <h4>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            What This Research Cannot & Does Not Claim
+                        </h4>
+                        <ul class="honest-framing-list">
+                            <li><strong>Observational, Not Causal:</strong> The model identifies statistical associations with decay. Updating an article does not guarantee organic recovery; search recovery requires controlled experimental validation.</li>
+                            <li><strong>No Black-Box Algorithm Prediction:</strong> The model scores lagging observable search telemetry. It does not predict unreleased Google algorithm updates or SERP layout modifications.</li>
+                            <li><strong>Cohort Boundary:</strong> Validated on a 32-enterprise client cohort. Niche B2C verticals with extreme seasonality require custom threshold calibration.</li>
+                            <li><strong>Rigorous Directional Language:</strong> All findings are framed as decision-support heuristics ("associated with", "observed patterns"), avoiding unsupported causal assertions.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- 7. Ranked Recommendations (Playbook) -->
+                <article id="playbook" class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">6</span> Ranked Action Playbook & Governance</h3>
+                    <p class="paper-text">
+                        Predictions are mapped directly into an actionable 5-tier queue that tells editorial teams exactly what action to take, why, and at what economic priority:
+                    </p>
+
+                    <div class="playbook-tier-list">
+                        <div class="playbook-card">
+                            <div class="tier-badge t1">Tier 1: High Urgency</div>
+                            <div class="playbook-info">
+                                <h4>Refresh & Review CTR (Quick Wins)</h4>
+                                <p>High search impressions (&gt;1,000) but severely depressed CTR (&lt;0.5%). The page is indexed and visible, but titles/meta snippets fail to capture searcher clicks. Fast $10–$25 metadata fix.</p>
+                            </div>
+                            <div class="playbook-metric">6,657 Pages (22.2%)</div>
+                        </div>
+
+                        <div class="playbook-card">
+                            <div class="tier-badge t2">Tier 2: Core Refactor</div>
+                            <div class="playbook-info">
+                                <h4>Full Content & Intent Refresh</h4>
+                                <p>Established articles exhibiting sustained multi-week ranking and impression erosion. Requires updating factual examples, adding fresh statistics, and aligning with evolved search intent.</p>
+                            </div>
+                            <div class="playbook-metric">8,178 Pages (27.3%)</div>
+                        </div>
+
+                        <div class="playbook-card">
+                            <div class="tier-badge t3">Tier 3: Engagement</div>
+                            <div class="playbook-info">
+                                <h4>Review Reader Experience & Retention</h4>
+                                <p>Healthy search traffic (sessions &gt;=30) paired with low scroll depth and high bounce rates. Content ranking well but failing reader satisfaction. UX and readability refactoring needed.</p>
+                            </div>
+                            <div class="playbook-metric">1,990 Pages (6.6%)</div>
+                        </div>
+
+                        <div class="playbook-card">
+                            <div class="tier-badge t4">Tier 4: Expansion</div>
+                            <div class="playbook-info">
+                                <h4>Expand Thin Content Depth</h4>
+                                <p>Thin articles (&lt;1,200 words) maintaining residual impressions but losing ground to comprehensive competitor guides. Requires adding missing topical subheadings and deep analysis.</p>
+                            </div>
+                            <div class="playbook-metric">82 Pages (0.3%)</div>
+                        </div>
+
+                        <div class="playbook-card">
+                            <div class="tier-badge t5">Tier 5: Monitor</div>
+                            <div class="playbook-info">
+                                <h4>Maintain & Monitor Trajectory</h4>
+                                <p>Healthy, stable, or growing articles showing positive momentum. Placed on automated 30-day monitoring cycles; zero manual intervention required.</p>
+                            </div>
+                            <div class="playbook-metric">13,093 Pages (43.6%)</div>
+                        </div>
+                    </div>
+
+                    <!-- Non-Automation Guardrail -->
+                    <div class="paper-card glass-panel" style="margin-top: 24px; border-left: 4px solid #ef4444;">
+                        <h4 style="color: #f87171;">⚠️ Strict Non-Automation Guardrails</h4>
+                        <p class="paper-text">
+                            <strong>What Must NEVER Be Automated:</strong> Automatic overwriting of published URLs without human editorial review, programmatic canonical redirects on high-authority pages, and automated hallucination-prone AI rewriting of technical or legal copy. The ML model is a <em>reviewer triage aid</em>, not an autonomous publishing robot.
                         </p>
                     </div>
+                </article>
+
+                <!-- 8. Reproducibility -->
+                <article class="paper-section-block">
+                    <h3 class="paper-sec-title"><span class="step-num">7</span> Reproducibility & Open Source Notebooks</h3>
+                    <div class="reproduce-card">
+                        <p class="paper-text">
+                            In adherence to open science standards, all pipeline code, client-holdout splits, evaluation assertions, and playbook exports are completely reproducible with fixed random seed (<code>RANDOM_STATE = 42</code>):
+                        </p>
+                        <div class="reproduce-links">
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/notebooks/capstone.ipynb" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                                📓 Capstone Reproducibility Notebook
+                            </a>
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/notebooks/w07_action_playbook.ipynb" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                                📊 Action Playbook Notebook
+                            </a>
+                            <a href="https://github.com/mbqayyum/FlyRank_ML_Intern" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                                🐙 Complete GitHub Repository
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 9. Acknowledgments & Data Credit -->
+                <div class="data-credit-box">
+                    <div class="data-credit-text">
+                        <h4>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                            Acknowledgments & Data Credit
+                        </h4>
+                        <p>
+                            Built on the <strong>FlyRank ML Internship dataset</strong>. Sincere gratitude to the FlyRank Research and Data Infrastructure teams for providing access to the 79-million-row production search telemetry warehouse, client anonymization tooling, and mentorship.
+                        </p>
+                    </div>
+                    <a href="https://flyrank.ai" target="_blank" rel="noopener noreferrer" class="data-credit-link">
+                        Visit FlyRank.ai ↗
+                    </a>
                 </div>
             </div>
         </section>
