@@ -33,4 +33,5 @@ Everything built across the 10-week curriculum lives here: lane experiments, not
 - 🎬 **[Showcase Demo Walkthrough](ai_fluency_week10/demo_script_and_walkthrough.md)** — 3–5 min live demonstration script.
 - 📦 **[FL-09 Agent README & Demo Submission Package](ai_fluency_week10/AGENT_README_AND_DEMO_SUBMISSION.md)** — Complete portal submission text and links.
 - 📄 **[Live Deployed Research Paper](https://mbqayyum.github.io/FlyRank_ML_Intern/)** — Public GitHub Pages deployment.
+- 📑 **[Capstone Research Paper (Markdown)](capstone_report.md)** — Canonical 9-section report.
 - 📋 **[Submission URL Pointer](../submission/paper_url.txt)** — `https://mbqayyum.github.io/FlyRank_ML_Intern/`
