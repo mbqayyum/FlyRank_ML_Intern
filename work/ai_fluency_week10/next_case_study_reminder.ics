@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//FlyRank AI Internship//Portfolio Compounding Reminder//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:flyrank-compounding-audit-2026-qayyum@flyrank.ai
+DTSTAMP:20260828T120000Z
+DTSTART:20260901T090000Z
+RRULE:FREQ=MONTHLY;BYMONTHDAY=1
+SUMMARY:⚡ FlyRank Portfolio Compounding Audit & Case Study Addition
+DESCRIPTION:Monthly 30-minute portfolio compounding ritual:\n1. Review latest shipped ML system\n2. Draft Three-Beat Shape in Claude Project\n3. Add card to docs/index.html #projects\n4. Verify live deployment & badge link\n\nRepo: https://github.com/mbqayyum/FlyRank_ML_Intern
+URL:https://github.com/mbqayyum/FlyRank_ML_Intern
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Time to add your next case study to your FlyRank portfolio!
+TRIGGER:-PT15M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

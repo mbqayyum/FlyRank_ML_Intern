@@ -16,6 +16,7 @@
 - [x] **Showcase Demo Script & Narration:** [`demo_script_and_walkthrough.md`](./demo_script_and_walkthrough.md) & [Unlisted YouTube Video Link](https://youtu.be/PCrmfC9vPJ4) (3–5 minute live run, zero slides, one design decision, one limitation explained on camera).
 
 ### **Assignment 8.2 — Final Package, Retrospective & Capstone (FL-10)**
+- [x] **The Plan to Keep Building (Send the Link):** [`plan_to_keep_building.md`](./plan_to_keep_building.md) & [`next_case_study_reminder.ics`](./next_case_study_reminder.ics) (how to add the next case study in 30 mins, ML-11 next piece named, RFC 5545 calendar reminder artifact, preserved Claude Project context).
 - [x] **Master Deliverable Index:** [`MASTER_DELIVERABLE_INDEX.md`](./MASTER_DELIVERABLE_INDEX.md) (links every deliverable from Weeks 1 to 10 across both tracks).
 - [x] **Capstone Retrospective (500–800 words):** [`RETROSPECTIVE.md`](./RETROSPECTIVE.md) (written for the engineer on Day 1: goals, turning points, ML-11 next steps, 3 transferable lessons).
 - [x] **Completed Hours Log:** [`HOURS_LOG_SUMMARY.md`](./HOURS_LOG_SUMMARY.md) (44.0 verified hours across 10 weeks).
