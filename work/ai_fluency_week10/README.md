@@ -12,8 +12,8 @@
 ## Deliverables Checklist
 
 ### **Assignment 8.1 — Documentation and Demo (FL-09)**
-- [x] **Root README & Reproducibility:** Updated with setup instructions, pipeline overview, v2 evaluation results table, honest limitations, and AI transparency disclosure.
-- [x] **Showcase Demo Script & Narration:** [`demo_script_and_walkthrough.md`](./demo_script_and_walkthrough.md) (3–5 minute live run, zero slides, one design decision, one limitation explained).
+- [x] **Agent README & Submission Package:** [`AGENT_README_AND_DEMO_SUBMISSION.md`](./AGENT_README_AND_DEMO_SUBMISSION.md) & [`work/ai_fluency_build_core/README.md`](../ai_fluency_build_core/README.md) (setup instructions a stranger can follow, architecture sketch, v2 evaluation results table, honest limitations, and AI transparency disclosure).
+- [x] **Showcase Demo Script & Narration:** [`demo_script_and_walkthrough.md`](./demo_script_and_walkthrough.md) & [Unlisted YouTube Video Link](https://youtu.be/FR-ML-REFRESH-SCOUT-DEMO) (3–5 minute live run, zero slides, one design decision, one limitation explained on camera).
 
 ### **Assignment 8.2 — Final Package, Retrospective & Capstone (FL-10)**
 - [x] **Master Deliverable Index:** [`MASTER_DELIVERABLE_INDEX.md`](./MASTER_DELIVERABLE_INDEX.md) (links every deliverable from Weeks 1 to 10 across both tracks).

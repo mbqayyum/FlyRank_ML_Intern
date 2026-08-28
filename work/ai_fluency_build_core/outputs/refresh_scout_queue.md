@@ -1,6 +1,6 @@
 # FlyRank Content Refresh Queue & Briefs — Top 50 Candidates
 
-- **Generated At:** 2026-08-10 06:20:47 UTC
+- **Generated At:** 2026-08-28 14:30:07 UTC
 - **Total Evaluated Candidates:** 30,000
 - **Scoring Engine:** Scikit-Learn Random Forest Classifier + Feature Vector Normalizer
 - **Agent Version:** FlyRank Refresh Scout MVP v1.0
@@ -22,8 +22,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -46,7 +46,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -70,7 +70,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -95,7 +95,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
 > - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-alpha.com`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -118,8 +118,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -166,7 +166,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -190,7 +190,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -214,7 +214,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -238,7 +238,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -262,8 +262,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -286,7 +286,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `transactional search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `False` | Ad Block Present: `False`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -310,8 +310,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -334,8 +334,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -383,7 +383,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
 > - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -407,7 +407,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
 > - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -430,7 +430,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `False` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -454,7 +454,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -478,7 +478,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -502,7 +502,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -574,8 +574,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -622,8 +622,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -646,8 +646,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -670,7 +670,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -718,7 +718,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -743,7 +743,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
 > - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-alpha.com`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -766,8 +766,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -814,7 +814,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -838,8 +838,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `False` | Ad Block Present: `True`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -862,8 +862,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -886,8 +886,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-beta.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -910,7 +910,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -934,7 +934,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -959,7 +959,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
 > - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-beta.com`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -982,7 +982,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -1007,7 +1007,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
 > - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1031,7 +1031,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
 > - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-beta.com`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1054,8 +1054,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1079,7 +1079,7 @@
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
 > - AI Overview Present: `False` | Ad Block Present: `True`
-> - Top Competitor: `competitor-beta.com`
+> - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1102,8 +1102,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1126,8 +1126,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `True` | Ad Block Present: `False`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**
@@ -1150,7 +1150,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `commercial search guide`
-> - AI Overview Present: `True` | Ad Block Present: `False`
+> - AI Overview Present: `False` | Ad Block Present: `True`
 > - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
@@ -1174,7 +1174,7 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `True`
+> - AI Overview Present: `True` | Ad Block Present: `False`
 > - Top Competitor: `competitor-alpha.com`
 > - Organic Visible Above Fold: `True`
 
@@ -1198,8 +1198,8 @@
 
 > **SERP Context Inspection:**
 > - Keyword: `informational search guide`
-> - AI Overview Present: `False` | Ad Block Present: `False`
-> - Top Competitor: `competitor-alpha.com`
+> - AI Overview Present: `False` | Ad Block Present: `True`
+> - Top Competitor: `competitor-beta.com`
 > - Organic Visible Above Fold: `True`
 
 > **Skeptic Note (What Would Make It Wrong):**

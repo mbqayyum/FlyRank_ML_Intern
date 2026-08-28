@@ -6,21 +6,55 @@ from collections import Counter
 from pathlib import Path
 from typing import Callable
 
-from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER, TA_LEFT
-from reportlab.lib.pagesizes import landscape, letter
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.lib.units import inch
-from reportlab.platypus import (
-    Flowable,
-    PageBreak,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-    Table,
-    TableStyle,
-)
+try:
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+    from reportlab.lib.pagesizes import landscape, letter
+    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+    from reportlab.lib.units import inch
+    from reportlab.platypus import (
+        Flowable,
+        PageBreak,
+        Paragraph,
+        SimpleDocTemplate,
+        Spacer,
+        Table,
+        TableStyle,
+    )
+    REPORTLAB_AVAILABLE = True
+    PAGE_SIZE = landscape(letter)
+    PAGE_WIDTH, PAGE_HEIGHT = PAGE_SIZE
+    LEFT_MARGIN = 0.48 * inch
+    RIGHT_MARGIN = 0.48 * inch
+    TOP_MARGIN = 0.42 * inch
+    BOTTOM_MARGIN = 0.42 * inch
+    CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
 
+    BRAND_DARK = colors.HexColor("#16232A")
+    BRAND_TEXT = colors.HexColor("#27343B")
+    BRAND_MUTED = colors.HexColor("#65737A")
+    BRAND_PURPLE = colors.HexColor("#6F4E7C")
+    BRAND_TEAL = colors.HexColor("#426B69")
+    BRAND_BLUE = colors.HexColor("#4E79A7")
+    BRAND_LAVENDER = colors.HexColor("#8C6BB1")
+    BRAND_GREEN = colors.HexColor("#59A14F")
+    BRAND_ORANGE = colors.HexColor("#F28E2B")
+    BRAND_RED = colors.HexColor("#E15759")
+    LIGHT_BG = colors.HexColor("#F6F4F7")
+    LIGHT_TEAL = colors.HexColor("#EEF6F5")
+    LIGHT_BLUE = colors.HexColor("#EEF3FA")
+    LINE = colors.HexColor("#D9DEE2")
+except ImportError:
+    REPORTLAB_AVAILABLE = False
+    colors = None
+    inch = 72
+    Flowable = object
+    PAGE_SIZE = (792, 612)
+    PAGE_WIDTH, PAGE_HEIGHT = PAGE_SIZE
+    LEFT_MARGIN = RIGHT_MARGIN = TOP_MARGIN = BOTTOM_MARGIN = 34.56
+    CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
+    BRAND_DARK = BRAND_TEXT = BRAND_MUTED = BRAND_PURPLE = BRAND_TEAL = BRAND_BLUE = None
+    BRAND_LAVENDER = BRAND_GREEN = BRAND_ORANGE = BRAND_RED = LIGHT_BG = LIGHT_TEAL = LIGHT_BLUE = LINE = None
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = ROOT / "outputs"
@@ -28,29 +62,6 @@ QUEUE_PATH = OUTPUT_DIR / "refresh_queue.csv"
 SUMMARY_PATH = OUTPUT_DIR / "summary.json"
 MODEL_RESULTS_PATH = OUTPUT_DIR / "model_results.json"
 PDF_PATH = OUTPUT_DIR / "flyrank_refresh_model_results.pdf"
-
-PAGE_SIZE = landscape(letter)
-PAGE_WIDTH, PAGE_HEIGHT = PAGE_SIZE
-LEFT_MARGIN = 0.48 * inch
-RIGHT_MARGIN = 0.48 * inch
-TOP_MARGIN = 0.42 * inch
-BOTTOM_MARGIN = 0.42 * inch
-CONTENT_WIDTH = PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN
-
-BRAND_DARK = colors.HexColor("#16232A")
-BRAND_TEXT = colors.HexColor("#27343B")
-BRAND_MUTED = colors.HexColor("#65737A")
-BRAND_PURPLE = colors.HexColor("#6F4E7C")
-BRAND_TEAL = colors.HexColor("#426B69")
-BRAND_BLUE = colors.HexColor("#4E79A7")
-BRAND_LAVENDER = colors.HexColor("#8C6BB1")
-BRAND_GREEN = colors.HexColor("#59A14F")
-BRAND_ORANGE = colors.HexColor("#F28E2B")
-BRAND_RED = colors.HexColor("#E15759")
-LIGHT_BG = colors.HexColor("#F6F4F7")
-LIGHT_TEAL = colors.HexColor("#EEF6F5")
-LIGHT_BLUE = colors.HexColor("#EEF3FA")
-LINE = colors.HexColor("#D9DEE2")
 
 
 class HorizontalBarChart(Flowable):
@@ -400,6 +411,10 @@ def footer(canvas, doc) -> None:
 
 
 def build_pdf() -> None:
+    if not REPORTLAB_AVAILABLE:
+        print("Note: reportlab is not installed. To build the optional PDF summary, install reportlab (`pip install reportlab`). Skipping PDF generation.")
+        return
+
     summary = load_json(SUMMARY_PATH)
     results = load_json(MODEL_RESULTS_PATH)
     queue_rows = load_queue_rows(QUEUE_PATH)

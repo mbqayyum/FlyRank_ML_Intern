@@ -31,5 +31,6 @@ Everything built across the 10-week curriculum lives here: lane experiments, not
 - ⏱️ **[Verified Hours Log Summary](ai_fluency_week10/HOURS_LOG_SUMMARY.md)** — 44.0 verified hours across 10 weeks.
 - 📣 **[Build-in-Public Story](ai_fluency_week10/BUILD_IN_PUBLIC_POST.md)** — Honest decision and limitation breakdown.
 - 🎬 **[Showcase Demo Walkthrough](ai_fluency_week10/demo_script_and_walkthrough.md)** — 3–5 min live demonstration script.
+- 📦 **[FL-09 Agent README & Demo Submission Package](ai_fluency_week10/AGENT_README_AND_DEMO_SUBMISSION.md)** — Complete portal submission text and links.
 - 📄 **[Live Deployed Research Paper](https://mbqayyum.github.io/FlyRank_ML_Intern/)** — Public GitHub Pages deployment.
 - 📋 **[Submission URL Pointer](../submission/paper_url.txt)** — `https://mbqayyum.github.io/FlyRank_ML_Intern/`
