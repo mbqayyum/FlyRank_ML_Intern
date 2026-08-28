@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//FlyRank AI Internship//Portfolio Compounding Reminder//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:FlyRank Portfolio Compounding & Case Study Addition
+X-WR-TIMEZONE:UTC
+BEGIN:VEVENT
+UID:fr-ml-portfolio-compounding-20260901T090000Z@flyrank.ai
+DTSTAMP:20260828T142335Z
+DTSTART:20260901T090000Z
+DTEND:20260901T093000Z
+RRULE:FREQ=MONTHLY;BYMONTHDAY=1
+SUMMARY:⚡ FlyRank Portfolio Compounding Audit & Case Study Addition
+DESCRIPTION:Recurring 30-minute monthly habit to keep the FlyRank AI & ML Engineering portfolio alive and compounding:\n\n1. Review latest shipped work: ML-11 Neural Semantic Search & Autonomous LLM Content Refresh Agent.\n2. Draft new case study using the Three-Beat Shape (Problem -> Build/Decisions -> Quantified Outcome & Playbook).\n3. Insert case study card into docs/index.html under #projects.\n4. Verify live deployment at https://mbqayyum.github.io/FlyRank_ML_Intern/ and credential badge at https://internship.flyrank.ai/verify.\n5. Keep Claude Project context alive (voice card: Direct, technical, honest, grounded, concise, plain).\n\nAction Link: https://github.com/mbqayyum/FlyRank_ML_Intern
+LOCATION:https://mbqayyum.github.io/FlyRank_ML_Intern/
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder: 15 minutes until monthly portfolio compounding audit and next case study addition.
+END:VALARM
+END:VEVENT
+END:VCALENDAR

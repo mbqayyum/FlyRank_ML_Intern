@@ -24,10 +24,10 @@
    - Launch hygiene checklist (Favicon, Open Graph, Twitter Cards, Canonical URL, JSON-LD Schema).
    - Official FlyRank Graduate Verification Badge integration in the portfolio footer.
 
-3. **[`plan_to_keep_building.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week09/plan_to_keep_building.md):**
+3. **[`plan_to_keep_building.md`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week09/plan_to_keep_building.md) & [`next_case_study_reminder.ics`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week09/next_case_study_reminder.ics):**
    - The **30-Minute Case Study Addition Ritual** (Three-Beat shape: Problem $\to$ Build/Proof $\to$ Outcome).
    - Named next real piece of work: **ML-11: Neural Semantic Search Ranking & Autonomous LLM Content Refresh Agent**.
-   - Concrete recurring monthly audit reminder and post-ship habits.
+   - Concrete recurring monthly audit reminder (`.ics` calendar artifact) and post-ship habits.
    - AI workspace memory preservation standards.
 
 4. **[`hardening_flow.svg`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/ai_fluency_week09/hardening_flow.svg):**
