@@ -2,6 +2,7 @@
 
 [![Live Deployed Paper](https://img.shields.io/badge/Live_Paper-Deployed_GitHub_Pages-success?style=for-the-badge&logo=github)](https://mbqayyum.github.io/FlyRank_ML_Intern/)
 [![Credential Verification](https://img.shields.io/badge/FlyRank_Credential-FR--ML--2026--QAYYUM-54E399?style=for-the-badge&logo=shield)](https://internship.flyrank.ai/verify?id=FR-ML-2026-QAYYUM&first_name=M.+B.)
+[![Demo Video](https://img.shields.io/badge/Demo_Video-YouTube_(Unlisted)-red?style=for-the-badge&logo=youtube)](https://youtu.be/PCrmfC9vPJ4)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue?style=for-the-badge&logo=python)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -153,7 +154,9 @@ In accordance with the **AI Fluency Transparency Diligence Framework**:
 - 📝 **Capstone Retrospective (500–800 words):** [`work/ai_fluency_week10/RETROSPECTIVE.md`](./work/ai_fluency_week10/RETROSPECTIVE.md)
 - ⏱️ **Verified Hours Log:** [`work/ai_fluency_week10/HOURS_LOG_SUMMARY.md`](./work/ai_fluency_week10/HOURS_LOG_SUMMARY.md)
 - 📣 **Build-in-Public Story:** [`work/ai_fluency_week10/BUILD_IN_PUBLIC_POST.md`](./work/ai_fluency_week10/BUILD_IN_PUBLIC_POST.md)
-- 🎬 **Showcase Demo Script:** [`work/ai_fluency_week10/demo_script_and_walkthrough.md`](./work/ai_fluency_week10/demo_script_and_walkthrough.md)
+- 🎬 **Showcase Demo Video (YouTube):** [https://youtu.be/PCrmfC9vPJ4](https://youtu.be/PCrmfC9vPJ4)
+- 🎬 **Showcase Demo Script & Narration:** [`work/ai_fluency_week10/demo_script_and_walkthrough.md`](./work/ai_fluency_week10/demo_script_and_walkthrough.md)
+- 📦 **FL-09 Agent README & Demo Submission Package:** [`work/ai_fluency_week10/AGENT_README_AND_DEMO_SUBMISSION.md`](./work/ai_fluency_week10/AGENT_README_AND_DEMO_SUBMISSION.md)
 
 ---
 

@@ -3,6 +3,7 @@
 **Presenter:** M. B. Qayyum · Machine Learning & AI Fluency Track  
 **Target Duration:** 3–5 Minutes (Actual: 3m 53s)  
 **Format:** Live Terminal & Live Web Page Walkthrough (No Static Slides)  
+**YouTube Video (Unlisted):** [https://youtu.be/PCrmfC9vPJ4](https://youtu.be/PCrmfC9vPJ4)  
 **Video File (1080p MP4):** [`work/outputs/flyrank_refresh_scout_demo.mp4`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/outputs/flyrank_refresh_scout_demo.mp4)  
 **Watch on GitHub:** [https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4](https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4)  
 **Live Platform:** [https://mbqayyum.github.io/FlyRank_ML_Intern/#demo](https://mbqayyum.github.io/FlyRank_ML_Intern/#demo)  

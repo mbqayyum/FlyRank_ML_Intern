@@ -13,7 +13,7 @@
 
 ```text
 https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/ai_fluency_build_core/README.md
-https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4
+https://youtu.be/PCrmfC9vPJ4
 https://mbqayyum.github.io/FlyRank_ML_Intern/
 https://github.com/mbqayyum/FlyRank_ML_Intern
 https://internship.flyrank.ai/verify?id=FR-ML-2026-QAYYUM&first_name=M.+B.
@@ -32,9 +32,9 @@ This deliverable contains the complete **FlyRank Refresh Scout Autonomous Agent*
    - Includes full usage examples (Python SDK & CLI), 5-step control loop architecture sketch, v2 evaluation benchmark on held-out clients (3.1× lift), 5-tier action playbook, and explicit limitations with strict non-automation guardrails.
 
 2. **3 to 5 Minute Showcase Demo Video (3m 53s):**
+   - **YouTube Video URL (Unlisted):** [https://youtu.be/PCrmfC9vPJ4](https://youtu.be/PCrmfC9vPJ4)
    - **Direct Video File (1080p MP4):** [`work/outputs/flyrank_refresh_scout_demo.mp4`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/outputs/flyrank_refresh_scout_demo.mp4)
    - **GitHub Web Playable Link:** [https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4](https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4)
-   - **Direct Raw Video Stream:** [https://github.com/mbqayyum/FlyRank_ML_Intern/raw/main/work/outputs/flyrank_refresh_scout_demo.mp4](https://github.com/mbqayyum/FlyRank_ML_Intern/raw/main/work/outputs/flyrank_refresh_scout_demo.mp4)
    - **Interactive Live Site:** [https://mbqayyum.github.io/FlyRank_ML_Intern/#demo](https://mbqayyum.github.io/FlyRank_ML_Intern/#demo)
    - **Format:** 100% live terminal execution (`python work/ai_fluency_build_core/run_agent_mvp.py` & `python scripts/run_all.py`), full-HD UI frame walkthroughs, and synthesized voice narration. **Zero static slide decks.**
    - **One Major Design Decision Explained on Camera:** Client-holdout validation partition (holding out 6 entire enterprise client organizations to prevent shared-domain leakage) vs. naive k-fold cross-validation.
