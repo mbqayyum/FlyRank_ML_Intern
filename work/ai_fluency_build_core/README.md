@@ -203,7 +203,9 @@ The agent maps predictions into 5 operational tiers:
 
 ## 8. Showcase Demo Video & Walkthrough (3–5 Minutes)
 
-- **Video URL:** [Watch the Showcase Demo on YouTube (Unlisted)](https://youtu.be/FR-ML-REFRESH-SCOUT-DEMO)
+- **Direct Video File (1080p MP4):** [`work/outputs/flyrank_refresh_scout_demo.mp4`](file:///d:/screen/MS/FlyRank-Intern/VS_Intern_Repo/FlyRank_ML_Intern/work/outputs/flyrank_refresh_scout_demo.mp4)
+- **Watch on GitHub:** [https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4](https://github.com/mbqayyum/FlyRank_ML_Intern/blob/main/work/outputs/flyrank_refresh_scout_demo.mp4)
+- **Direct Stream URL:** [https://github.com/mbqayyum/FlyRank_ML_Intern/raw/main/work/outputs/flyrank_refresh_scout_demo.mp4](https://github.com/mbqayyum/FlyRank_ML_Intern/raw/main/work/outputs/flyrank_refresh_scout_demo.mp4)
 - **Live Interactive Walkthrough:** [https://mbqayyum.github.io/FlyRank_ML_Intern/#demo](https://mbqayyum.github.io/FlyRank_ML_Intern/#demo)
 - **Script & Narration Breakdown:** [`work/ai_fluency_week10/demo_script_and_walkthrough.md`](../ai_fluency_week10/demo_script_and_walkthrough.md)
 
